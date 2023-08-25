@@ -1,0 +1,29 @@
+---
+# tasks file for git
+
+######################################
+### packages
+
+- name: "Git: Manage packages"
+  become: true
+  ansible.builtin.package:
+    name: "{{ git_package }}"
+    state: "{{ git_package_state }}"
+
+######################################
+### jobs
+
+- name: "Git: Manage system git config"
+  become: true
+  community.general.git_config:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    scope: system
+  with_items: "{{ git_config_system }}"
+
+- name: "Git: Manage git config"
+  community.general.git_config:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    scope: "{{ item.scope }}"
+  with_items: "{{ git_config }}"

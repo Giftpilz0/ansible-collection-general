@@ -1,0 +1,6 @@
+---
+# defaults file for update
+
+update_package_names: "*"
+update_package_security_only: false
+update_package_bugfix_only: false

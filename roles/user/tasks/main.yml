@@ -1,0 +1,35 @@
+---
+# tasks file for user
+
+######################################
+### jobs
+
+- name: "User: Manage group"
+  become: true
+  ansible.builtin.group:
+    name: "{{ user_username }}"
+    state: "{{ user_state }}"
+
+- name: "User: Hash password"
+  ansible.builtin.command: mkpasswd {{ user_password }}
+  register: hashed_user_password
+  changed_when: hashed_user_password.rc != 0
+  when:
+    - user_password is defined
+
+- name: "User: Set hashed password"
+  ansible.builtin.set_fact:
+    hashed_user_password: "{{ hashed_user_password.stdout }}"
+  when:
+    - user_password is defined
+
+- name: "User: Manage user"
+  become: true
+  ansible.builtin.user:
+    name: "{{ user_username }}"
+    group: "{{ user_username }}"
+    groups: "{{ user_groups | default({}) }}"
+    password: "{{ hashed_user_password | default({}) }}"
+    create_home: "{{ user_home | default({}) }}"
+    shell: "{{ user_shell | default({}) }}"
+    state: "{{ user_state }}"

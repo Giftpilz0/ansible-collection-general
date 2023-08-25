@@ -1,0 +1,115 @@
+---
+# tasks file for packages
+
+######################################
+### packages
+
+- name: "Packages: Gather package Facts"
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: "Packages: Manage rpmfusion repository keys"
+  become: true
+  ansible.builtin.rpm_key:
+    key: "{{ item }}"
+    state: "{{ packages_rpmfusion_package_state }}"
+  loop:
+    - /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}
+    - /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-fedora-{{ ansible_distribution_version }}
+  when:
+    - packages_rpmfusion_package_state != 'skip'
+
+- name: "Packages: Manage rpmfusion repository"
+  become: true
+  ansible.builtin.package:
+    name: "{{ packages_rpmfusion_package }}"
+    state: "{{ packages_rpmfusion_package_state }}"
+  when:
+    - packages_rpmfusion_package_state != 'skip'
+
+- name: "Packages: Configure rpmfusion codecs"
+  become: true
+  ansible.builtin.shell: |
+    dnf swap -y ffmpeg-free ffmpeg --allowerasing
+    dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+  register: rpmfusion_codecs
+  changed_when: rpmfusion_codecs.rc != 0
+  when:
+    - packages_rpmfusion_package_state != 'skip'
+
+- name: "Packages: Configure rpmfusion"
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - "@core"
+      - "@multimedia"
+      - "@sound-and-video"
+    update_only: true
+    state: latest
+  when:
+    - packages_rpmfusion_package_state != 'skip'
+
+- name: "Packages: Configure rpmfusion codecs - amd"
+  become: true
+  ansible.builtin.shell: |
+    dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
+    dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+  register: rpmfusion_codecs_amd
+  changed_when: rpmfusion_codecs_amd.rc != 0
+  when:
+    - packages_rpmfusion_package_state != 'skip'
+
+- name: "Packages: Configure rpmfusion codecs - intel"
+  become: true
+  ansible.builtin.package:
+    name:
+      - intel-media-driver
+      - libva-intel-driver
+    state: "{{ packages_rpmfusion_package_state }}"
+  when:
+    - packages_rpmfusion_package_state != 'skip'
+
+- name: "Packages: Manage packages"
+  become: true
+  ansible.builtin.package:
+    name: "{{ packages_package }}"
+    state: "{{ packages_package_state }}"
+  when:
+    - packages_package_state != 'skip'
+
+- name: "Packages: Manage additional packages"
+  become: true
+  ansible.builtin.package:
+    name: "{{ packages_additional_package }}"
+    state: "{{ packages_additional_package_state }}"
+  when:
+    - packages_package_state != 'skip'
+
+- name: "Packages: Manage flatpak repository"
+  become: true
+  community.general.flatpak_remote:
+    name: "{{ packages_flatpak_repo_name }}"
+    flatpakrepo_url: "{{ packages_flatpak_repo }}"
+    method: system
+    state: "{{ packages_flatpak_repo_state }}"
+  when:
+    - "'flatpak' in ansible_facts.packages"
+    - packages_flatpak_repo_state != 'skip'
+
+- name: "Packages: Manage flatpaks"
+  become: true
+  community.general.flatpak:
+    name: "{{ packages_flatpak_package }}"
+    state: "{{ packages_flatpak_package_state }}"
+    remote: "{{ packages_flatpak_repo_name }}"
+  when:
+    - "'flatpak' in ansible_facts.packages"
+    - packages_flatpak_package_state != 'skip'
+
+- name: "Packages: Manage python packages"
+  become: true
+  ansible.builtin.pip:
+    name: "{{ packages_python_package }}"
+    state: "{{ packages_python_package_state }}"
+  when:
+    - packages_python_package_state != 'skip'

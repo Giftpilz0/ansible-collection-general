@@ -1,0 +1,30 @@
+---
+argument_specs:
+  main:
+    short_description: The main entry point for the update role.
+    options:
+      update_package_names:
+        type: list
+        elements: str
+        required: false
+        description: update_package_names
+
+      update_package_security_only:
+        type: bool
+        required: false
+        description: update_package_security_only
+
+      update_package_bugfix_only:
+        type: bool
+        required: false
+        description: update_package_bugfix_only
+
+      update_reboot_enabled:
+        type: bool
+        required: false
+        description: update_reboot_enabled
+
+      update_reboot_timeout:
+        type: int
+        required: false
+        description: update_reboot_timeout

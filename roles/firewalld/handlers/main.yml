@@ -1,0 +1,18 @@
+---
+# handlers file for firewalld
+
+- name: "Firewalld: Restart"
+  become: true
+  ansible.builtin.service:
+    name: "{{ firewalld_service_name }}"
+    state: restarted
+  when:
+    - firewalld_package_state != 'absent'
+
+- name: "Firewalld: Reload"
+  become: true
+  ansible.builtin.command: firewall-cmd --complete-reload
+  register: firewalld_reload
+  changed_when: firewalld_reload.rc != 0
+  when:
+    - firewalld_package_state != 'absent'

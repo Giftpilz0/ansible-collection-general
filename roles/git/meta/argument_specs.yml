@@ -1,0 +1,52 @@
+---
+argument_specs:
+  main:
+    short_description: The main entry point for the git role.
+    options:
+      git_package_state:
+        type: str
+        required: false
+        choices:
+          - present
+          - absent
+          - latest
+        description: git_package_state
+
+      git_package:
+        type: list
+        elements: str
+        required: false
+        description: git_package
+
+      git_config_system:
+        type: list
+        elements: dict
+        required: false
+        options:
+          key:
+            type: str
+            required: false
+          value:
+            type: str
+            required: false
+        description: git_config_system
+
+      git_config:
+        type: list
+        elements: dict
+        required: false
+        options:
+          key:
+            type: str
+            required: false
+          value:
+            type: str
+            required: false
+          scope:
+            type: str
+            required: false
+            choices:
+              - file
+              - local
+              - global
+        description: git_config

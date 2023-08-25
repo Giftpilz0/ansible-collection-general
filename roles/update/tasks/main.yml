@@ -1,0 +1,15 @@
+---
+# tasks file for update
+
+######################################
+### jobs
+
+- name: "Update: Update packages"
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ update_package_names }}"
+    state: latest
+    update_only: true
+    update_cache: true
+    security: "{{ update_package_security_only }}"
+    bugfix: "{{ update_package_bugfix_only }}"

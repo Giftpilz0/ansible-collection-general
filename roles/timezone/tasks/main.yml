@@ -1,0 +1,10 @@
+---
+# tasks file for timezone
+
+######################################
+### jobs
+
+- name: "Timezone: Set timezone"
+  become: true
+  community.general.timezone:
+    name: "{{ timezone_timezone }}"

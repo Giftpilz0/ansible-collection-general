@@ -1,0 +1,29 @@
+---
+namespace: giftpilz0
+name: general
+version: 1.0.0
+
+description: Ansible collection for general linux tasks
+readme: README.md
+license:
+  - GPL-3.0-only
+
+authors:
+  - Moritz Schmidt <schmidtmoritz404@gmail.com>
+
+tags:
+  - linux
+  - dnf
+  - timezone
+  - update
+  - packages
+  - pcp
+  - firewalld
+  - git
+  - user
+
+dependencies:
+  ansible.posix: ">=1.0.0"
+  community.general: ">=1.0.0"
+
+repository: https://github.com/giftpilz0/ansible-collection-general

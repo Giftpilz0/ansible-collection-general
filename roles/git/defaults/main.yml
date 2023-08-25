@@ -1,0 +1,6 @@
+---
+# defaults file for git
+
+git_package_state: present
+git_package:
+  - git

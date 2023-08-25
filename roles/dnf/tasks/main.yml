@@ -1,0 +1,25 @@
+---
+# tasks file for dnf
+
+######################################
+### packages
+
+- name: "Dnf: Manage packages"
+  become: true
+  ansible.builtin.package:
+    name: "{{ dnf_automatic_package }}"
+    state: "{{ dnf_automatic_package_state }}"
+  notify:
+    - "Dnf: Restart"
+
+######################################
+### services
+
+- name: "Dnf: Manage services"
+  become: true
+  ansible.builtin.service:
+    name: "{{ dnf_automatic_service_name }}"
+    state: "{{ dnf_automatic_service_state }}"
+    enabled: "{{ dnf_automatic_service_enabled }}"
+  when:
+    - dnf_automatic_package_state != 'absent'

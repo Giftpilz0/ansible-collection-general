@@ -1,0 +1,11 @@
+---
+# defaults file for dotfiles
+
+dotfiles_package_state: present
+dotfiles_package:
+  - bash
+  - vim
+
+dotfiles_inputrc_file: /etc/inputrc
+dotfiles_inputrc_state: present
+dotfiles_bashprofile_enabled: true

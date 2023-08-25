@@ -1,0 +1,68 @@
+---
+# tasks file for dotfiles
+
+######################################
+### packages
+
+- name: "Dotfiles: Manage packages"
+  become: true
+  ansible.builtin.package:
+    name: "{{ dotfiles_package }}"
+    state: "{{ dotfiles_package_state }}"
+
+######################################
+### jobs
+
+- name: "Dotfiles: Manage bash profile"
+  become: true
+  ansible.builtin.copy:
+    src: ansible-bash.sh
+    dest: /etc/profile.d/ansible-bash.sh
+    owner: root
+    group: root
+    mode: "0644"
+  when:
+    - dotfiles_bashprofile_enabled | bool
+
+- name: "Dotfiles: Manage vim directory"
+  become: true
+  ansible.builtin.file:
+    path: /etc/vim
+    owner: root
+    group: root
+    mode: "0755"
+    state: directory
+
+- name: "Dotfiles: Manage vimrc"
+  become: true
+  ansible.builtin.copy:
+    src: vim/vimrc
+    dest: /etc/vimrc.local
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: "Dotfiles: Manage vim files"
+  become: true
+  ansible.builtin.copy:
+    src: vim/{{ item }}
+    dest: /etc/vim/{{ item }}
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - autocmd.vim
+    - bundles.vim
+    - functions.vim
+    - map.vim
+    - plugins.vim
+    - settings.vim
+
+- name: "Dotfiles: Manage inputrc"
+  become: true
+  ansible.builtin.blockinfile:
+    block: "{{ lookup('ansible.builtin.file', 'files/inputrc') }}"
+    path: "{{ dotfiles_inputrc_file }}"
+    state: "{{ dotfiles_inputrc_state }}"
+  when:
+    - dotfiles_inputrc_state != 'skip'

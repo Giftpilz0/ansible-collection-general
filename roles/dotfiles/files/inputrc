@@ -1,0 +1,29 @@
+# do not bell on tab-completion
+set bell-style none
+
+# single tab autocompletion
+set show-all-if-ambiguous on
+
+# colored autocompletion
+set colored-stats On
+
+# Append char to indicate type
+set visible-stats On
+
+# Mark symlinked directories
+set mark-symlinked-directories On
+
+# Color the common prefix
+set colored-completion-prefix On
+
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix On
+
+# Alt + S | prefixes the line with sudo
+"\es": "\C-asudo \C-e"
+
+# Alt + C | execute clear
+"\ec": "\C-e\C-Uclear\C-m"
+
+# Alt + M | prefixes the line with man
+"\em": "\C-aman \C-e"

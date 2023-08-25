@@ -1,0 +1,102 @@
+---
+argument_specs:
+  main:
+    short_description: The main entry point for the packages role.
+    options:
+      packages_package_state:
+        type: str
+        required: false
+        choices:
+          - present
+          - absent
+          - latest
+          - skip
+        description: packages_package_state
+
+      packages_rpmfusion_package_state:
+        type: str
+        required: false
+        choices:
+          - present
+          - latest
+          - skip
+        description: packages_rpmfusion_package_state
+
+      packages_additional_package_state:
+        type: str
+        required: false
+        choices:
+          - present
+          - absent
+          - latest
+          - skip
+        description: packages_additional_package_state
+
+      packages_flatpak_package_state:
+        type: str
+        required: false
+        choices:
+          - present
+          - absent
+          - latest
+          - skip
+        description: packages_flatpak_package_state
+
+      packages_python_package_state:
+        type: str
+        required: false
+        choices:
+          - present
+          - absent
+          - latest
+          - skip
+        description: packages_python_package_state
+
+      packages_package:
+        type: list
+        elements: str
+        required: false
+        description: packages_package
+
+      packages_rpmfusion_package:
+        type: list
+        elements: str
+        required: false
+        description: packages_rpmfusion_package
+
+      packages_additional_package:
+        type: list
+        elements: str
+        required: false
+        description: packages_additional_package
+
+      packages_flatpak_package:
+        type: list
+        elements: str
+        required: false
+        description: packages_flatpak_package
+
+      packages_python_package:
+        type: list
+        elements: str
+        required: false
+        description: packages_python_package
+
+      packages_flatpak_repo:
+        type: str
+        required: false
+        description: packages_flatpak_repo
+
+      packages_flatpak_repo_name:
+        type: str
+        required: false
+        description: packages_flatpak_repo_name
+
+      packages_flatpak_repo_state:
+        type: str
+        required: false
+        choices:
+          - present
+          - absent
+          - skip
+        description: packages_flatpak_repo_state

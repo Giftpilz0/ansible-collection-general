@@ -1,0 +1,29 @@
+---
+# defaults file for packages
+
+packages_rpmfusion_package_state: skip
+packages_rpmfusion_package:
+  - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+  - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+
+packages_package_state: present
+packages_package:
+  - curl
+  - htop
+  - mkpasswd
+  - ncdu
+  - python3-pip
+  - rsync
+  - vim
+  - zstd
+
+packages_flatpak_repo: https://dl.flathub.org/repo/flathub.flatpakrepo
+packages_flatpak_repo_name: flathubrepo
+packages_flatpak_repo_state: present
+
+packages_additional_package_state: present
+packages_additional_package: []
+packages_flatpak_package_state: present
+packages_flatpak_package: []
+packages_python_package_state: present
+packages_python_package: []

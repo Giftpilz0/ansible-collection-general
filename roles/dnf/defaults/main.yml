@@ -1,0 +1,9 @@
+---
+# defaults file for dnf
+
+dnf_automatic_service_name: dnf-automatic-install.timer
+dnf_automatic_service_state: started
+dnf_automatic_service_enabled: true
+dnf_automatic_package_state: present
+dnf_automatic_package:
+  - dnf-automatic

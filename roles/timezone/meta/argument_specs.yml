@@ -1,0 +1,9 @@
+---
+argument_specs:
+  main:
+    short_description: The main entry point for the timezone role.
+    options:
+      timezone_timezone:
+        type: str
+        required: false
+        description: timezone_timezone
