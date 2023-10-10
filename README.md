@@ -20,6 +20,7 @@ ______________________________________________________________________
 - [firewalld](firewalld/)
 - [git](git/)
 - [packages](packages/)
+- [sysutil](sysutil/)
 - [timezone](timezone/)
 - [update](update/)
 - [user](user/)

@@ -1,0 +1,25 @@
+---
+# tasks file for sysutil
+
+######################################
+### packages
+
+- name: "Sysutil: Manage directory"
+  ansible.builtin.file:
+    name: "{{ sysutil_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: "Sysutil: Download"
+  ansible.builtin.unarchive:
+    src: "{{ sysutil_url }}"
+    dest: "{{ sysutil_path }}"
+    owner: root
+    group: root
+    mode: "0755"
+    remote_src: true
+    extra_opts:
+      - --add-file
+      - sysutil
