@@ -62,6 +62,18 @@
   when:
     - firewalld_package_state != 'absent'
 
+- name: "Firewalld: Rule ICMP"
+  become: true
+  ansible.posix.firewalld:
+    permanent: "{{ firewalld_permanent }}"
+    immediate: "{{ firewalld_immediate }}"
+    icmp_block: "{{ item.icmp_type }}"
+    zone: "{{ item.zone }}"
+    state: "{{ item.state }}"
+  with_items: "{{ firewalld_rules_icmp | default({}) }}"
+  when:
+    - firewalld_package_state != 'absent'
+
 - name: "Firewalld: Rule services"
   become: true
   ansible.posix.firewalld:
