@@ -1,0 +1,32 @@
+local.file_match "varlog" {
+  path_targets = [{
+    __path__ = "/var/log/*log",
+    job      = "varlog",
+  }]
+}
+loki.source.file "varlog" {
+  targets = local.file_match.varlog.targets
+    forward_to = [loki.write.local.receiver]
+}
+loki.write "local" {
+  endpoint {
+    url = "{{ monitoring_agent_config_remoteserver_loki }}"
+  }
+}
+
+prometheus.scrape "node_exporter" {
+  targets = [{
+    __address__ = "localhost:9100",
+  }]
+  forward_to     = [prometheus.remote_write.default.receiver]
+  job_name       = "node_exporter"
+  metrics_path    = "/metrics"
+  scrape_interval = "10s"
+}
+
+prometheus.remote_write "default" {
+  endpoint {
+    name = "mimir"
+    url  = "{{ monitoring_agent_config_remoteserver_prometheus }}"
+  }
+}

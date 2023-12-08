@@ -1,0 +1,12 @@
+[Unit]
+Description=Node Exporter
+Documentation=https://github.com/prometheus/node_exporter/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Restart=always
+ExecStart=/usr/local/bin/node_exporter {{ monitoring_nodeexporter_service_args }}
+
+[Install]
+WantedBy=multi-user.target

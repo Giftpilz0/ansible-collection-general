@@ -1,0 +1,10 @@
+---
+# handlers file for monitoring
+
+- name: "Monitoring: Restart Agent"
+  become: true
+  ansible.builtin.service:
+    name: "{{ monitoring_agent_service_name }}"
+    state: restarted
+  when:
+    - monitoring_agent_package_state != 'absent'

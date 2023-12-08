@@ -1,0 +1,85 @@
+---
+# tasks file for monitoring
+
+######################################
+### monitoring
+
+- name: "Monitoring: Gather package Facts"
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: "Monitoring: Download grafana-agent"
+  become: true
+  ansible.builtin.package:
+    name: "{{ monitoring_agent_package }}"
+    state: "{{ monitoring_agent_package_state }}"
+  when:
+    - monitoring_agent_package_state != 'skip'
+
+- name: "Monitoring: Manage grafana-agent config"
+  become: true
+  ansible.builtin.template:
+    src: grafana-agent-flow.river.j2
+    dest: "{{ monitoring_agent_config_path }}"
+    owner: root
+    group: grafana-agent
+    mode: "0640"
+  when:
+    - monitoring_agent_package_state != 'skip'
+  notify:
+    - "Monitoring: Restart Agent"
+
+- name: "Monitoring: Manage service"
+  become: true
+  ansible.builtin.service:
+    name: "{{ monitoring_agent_service_name }}"
+    state: "{{ monitoring_agent_service_state }}"
+    enabled: "{{ monitoring_agent_service_enabled }}"
+  when:
+    - monitoring_agent_package_state != 'skip'
+
+- name: "Monitoring: Manage directory"
+  become: true
+  ansible.builtin.file:
+    name: "{{ monitoring_nodeexporter_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when:
+    - monitoring_nodeexporter_bin_state != 'skip'
+
+- name: "Monitoring: Download node-exporter"
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ monitoring_nodeexporter_url }}"
+    dest: "{{ monitoring_nodeexporter_path }}"
+    owner: root
+    group: root
+    mode: "0755"
+    remote_src: true
+    extra_opts:
+      - --add-file
+      - node_exporter
+  when:
+    - monitoring_nodeexporter_bin_state != 'skip'
+
+- name: "Monitoring: Manage service files"
+  become: true
+  ansible.builtin.template:
+    src: node-exporter.service.j2
+    dest: "{{ monitoring_nodeexporter_service_path }}"
+    owner: root
+    group: grafana-agent
+    mode: "0640"
+  when:
+    - monitoring_nodeexporter_bin_state != 'skip'
+
+- name: "Monitoring: Manage service"
+  become: true
+  ansible.builtin.service:
+    name: "{{ monitoring_nodeexporter_service_name }}"
+    state: "{{ monitoring_nodeexporter_service_state }}"
+    enabled: "{{ monitoring_nodeexporter_service_enabled }}"
+  when:
+    - monitoring_nodeexporter_bin_state != 'skip'

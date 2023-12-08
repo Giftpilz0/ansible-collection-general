@@ -1,0 +1,29 @@
+---
+# defaults file for monitoring
+
+monitoring_agent_arch: amd64
+monitoring_agent_tag: v0.38.1
+monitoring_agent_package_state: present
+monitoring_agent_package:
+  - https://github.com/grafana/agent/releases/download/{{ monitoring_agent_tag }}/grafana-agent-flow-{{ monitoring_agent_tag }}-1.{{ monitoring_agent_arch }}.rpm
+
+monitoring_agent_config_path: /etc/grafana-agent-flow.river
+monitoring_agent_config_remoteserver_loki: http://127.0.0.1:3100/loki/api/v1/push
+monitoring_agent_config_remoteserver_prometheus: http://127.0.0.1:9100/api/v1/push
+
+monitoring_agent_service_name: grafana-agent-flow.service
+monitoring_agent_service_state: started
+monitoring_agent_service_enabled: true
+
+monitoring_nodeexporter_bin_state: present
+monitoring_nodeexporter_url: https://github.com/prometheus/node_exporter/releases/download/v{{ monitoring_nodeexporter_tag }}/node_exporter-{{ monitoring_nodeexporter_tag
+  }}.linux-{{ monitoring_nodeexporter_arch }}.tar.gz
+monitoring_nodeexporter_arch: amd64
+monitoring_nodeexporter_tag: 1.7.0
+monitoring_nodeexporter_path: /usr/local/bin
+
+monitoring_nodeexporter_service_name: node-exporter.service
+monitoring_nodeexporter_service_path: /usr/lib/systemd/system/{{ monitoring_nodeexporter_service_name }}
+monitoring_nodeexporter_service_state: started
+monitoring_nodeexporter_service_enabled: true
+monitoring_nodeexporter_service_args: "--web.listen-address=127.0.0.1:9090"
