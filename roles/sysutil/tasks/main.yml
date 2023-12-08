@@ -5,14 +5,18 @@
 ### packages
 
 - name: "Sysutil: Manage directory"
+  become: true
   ansible.builtin.file:
     name: "{{ sysutil_path }}"
     state: directory
     owner: root
     group: root
     mode: "0755"
+  when:
+    - sysutil_bin_state != 'skip'
 
 - name: "Sysutil: Download"
+  become: true
   ansible.builtin.unarchive:
     src: "{{ sysutil_url }}"
     dest: "{{ sysutil_path }}"
@@ -23,3 +27,5 @@
     extra_opts:
       - --add-file
       - sysutil
+  when:
+    - sysutil_bin_state != 'skip'
