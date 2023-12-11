@@ -3,34 +3,6 @@ argument_specs:
   main:
     short_description: The main entry point for the monitoring role.
     options:
-      monitoring_nodeexporter_bin_state:
-        type: str
-        required: false
-        choices:
-          - present
-          - skip
-        description: monitoring_nodeexporter_bin_state
-
-      monitoring_nodeexporter_url:
-        type: str
-        required: false
-        description: monitoring_nodeexporter_url
-
-      monitoring_nodeexporter_arch:
-        type: str
-        required: false
-        description: monitoring_nodeexporter_arch
-
-      monitoring_nodeexporter_tag:
-        type: str
-        required: false
-        description: monitoring_nodeexporter_tag
-
-      monitoring_nodeexporter_path:
-        type: str
-        required: false
-        description: monitoring_nodeexporter_path
-
       monitoring_agent_package_state:
         type: str
         required: false
@@ -62,6 +34,11 @@ argument_specs:
         required: false
         description: monitoring_agent_service_name
 
+      monitoring_nodeexporter_service_path:
+        type: str
+        required: false
+        description: monitoring_nodeexporter_service_path
+
       monitoring_agent_service_state:
         type: str
         required: false
@@ -76,33 +53,3 @@ argument_specs:
         type: bool
         required: false
         description: monitoring_agent_service_enabled
-
-      monitoring_nodeexporter_service_name:
-        type: str
-        required: false
-        description: monitoring_nodeexporter_service_name
-
-      monitoring_nodeexporter_service_path:
-        type: str
-        required: false
-        description: monitoring_nodeexporter_service_path
-
-      monitoring_nodeexporter_service_state:
-        type: str
-        required: false
-        choices:
-          - reloaded
-          - restarted
-          - started
-          - stopped
-        description: monitoring_nodeexporter_service_state
-
-      monitoring_nodeexporter_service_enabled:
-        type: bool
-        required: false
-        description: monitoring_nodeexporter_service_enabled
-
-      monitoring_nodeexporter_service_args:
-        type: str
-        required: false
-        description: monitoring_nodeexporter_service_args

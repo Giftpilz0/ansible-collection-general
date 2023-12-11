@@ -1,32 +1,54 @@
-local.file_match "varlog" {
-  path_targets = [{
-    __path__ = "/var/log/*log",
-    job      = "varlog",
-  }]
+// Logfiles
+local.file_match "log" {
+  path_targets = [{"__path__" = "/var/logs/**/*.log"}]
 }
-loki.source.file "varlog" {
-  targets = local.file_match.varlog.targets
-    forward_to = [loki.write.local.receiver]
+
+loki.source.file "log" {
+  targets    = local.file_match.log.targets
+  forward_to = [loki.write.endpoint.receiver]
 }
-loki.write "local" {
+
+// Journal
+loki.relabel "journal" {
+  forward_to = []
+
+  rule {
+    source_labels = ["__journal__systemd_unit"]
+    target_label  = "unit"
+  }
+}
+
+loki.source.journal "journal" {
+  relabel_rules = loki.relabel.journal.rules
+  labels        = {component = "loki.source.journal"}
+  forward_to    = [loki.write.endpoint.receiver]
+}
+
+// node_exporter
+prometheus.exporter.unix "node" { }
+
+prometheus.scrape "node" {
+  targets         = prometheus.exporter.unix.node.targets
+  forward_to      = [prometheus.remote_write.endpoint.receiver]
+}
+
+// grafana_agent
+prometheus.exporter.agent "agent" { }
+
+prometheus.scrape "agent" {
+  targets    = prometheus.exporter.agent.agent.targets
+  forward_to = [prometheus.remote_write.endpoint.receiver]
+}
+
+// Endpoints
+loki.write "endpoint" {
   endpoint {
     url = "{{ monitoring_agent_config_remoteserver_loki }}"
   }
 }
 
-prometheus.scrape "node_exporter" {
-  targets = [{
-    __address__ = "localhost:9100",
-  }]
-  forward_to     = [prometheus.remote_write.default.receiver]
-  job_name       = "node_exporter"
-  metrics_path    = "/metrics"
-  scrape_interval = "10s"
-}
-
-prometheus.remote_write "default" {
+prometheus.remote_write "endpoint" {
   endpoint {
-    name = "mimir"
-    url  = "{{ monitoring_agent_config_remoteserver_prometheus }}"
+    url = "{{ monitoring_agent_config_remoteserver_prometheus }}"
   }
 }
