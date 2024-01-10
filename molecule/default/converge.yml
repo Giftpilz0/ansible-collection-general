@@ -30,11 +30,11 @@
       when: ansible_os_family == 'Debian'
 
   roles:
-    # - giftpilz0.general.dnf
+    - giftpilz0.general.dnf
     - giftpilz0.general.dotfiles
-    # - giftpilz0.general.firewalld
+    - giftpilz0.general.firewalld
     - giftpilz0.general.git # vars fehlen
-    # - giftpilz0.general.monitoring
+    - giftpilz0.general.monitoring
     - giftpilz0.general.packages
     - giftpilz0.general.sysutil
     - giftpilz0.general.timezone
