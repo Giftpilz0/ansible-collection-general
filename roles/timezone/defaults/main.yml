@@ -1,4 +1,8 @@
 ---
 # defaults file for timezone
 
+timezone_package_state: present
+timezone_package:
+  - tzdata
+
 timezone_timezone: Etc/UTC
