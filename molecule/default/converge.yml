@@ -16,16 +16,16 @@
     - name: Install dependencies (RedHat).
       ansible.builtin.package:
         name:
-          - util-linux # time
-          - python3-pip # packages
+          - tzdata
+          - python3-pip
         state: present
       when: ansible_os_family == 'RedHat'
 
     - name: Install dependencies (Debian).
       ansible.builtin.apt:
         name:
-          - tzdata # time
-          - python3-pip # packages
+          - tzdata
+          - python3-pip
         state: present
       when: ansible_os_family == 'Debian'
 
@@ -33,10 +33,10 @@
     - giftpilz0.general.dnf
     - giftpilz0.general.dotfiles
     - giftpilz0.general.firewalld
-    - giftpilz0.general.git # vars fehlen
+    - giftpilz0.general.git
     - giftpilz0.general.monitoring
     - giftpilz0.general.packages
     - giftpilz0.general.sysutil
     - giftpilz0.general.timezone
     - giftpilz0.general.update
-    - giftpilz0.general.user # vars fehlen
+    - giftpilz0.general.user

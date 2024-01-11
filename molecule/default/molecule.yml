@@ -7,11 +7,11 @@ provisioner:
   name: ansible
 platforms:
   - name: fedora
-    image: geerlingguy/docker-fedora39-ansible:latest
+    image: docker.io/geerlingguy/docker-fedora39-ansible:latest
     command: /lib/systemd/systemd
   - name: ubuntu
-    image: geerlingguy/docker-ubuntu2204-ansible:latest
+    image: docker.io/geerlingguy/docker-ubuntu2204-ansible:latest
     command: /lib/systemd/systemd
   - name: rockylinux9
-    image: geerlingguy/docker-rockylinux9-ansible:latest
+    image: docker.io/geerlingguy/docker-rockylinux9-ansible:latest
     command: /lib/systemd/systemd
