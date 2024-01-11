@@ -3,6 +3,21 @@ argument_specs:
   main:
     short_description: The main entry point for the timezone role.
     options:
+      timezone_package_state:
+        type: str
+        required: false
+        choices:
+          - present
+          - absent
+          - latest
+        description: timezone_package_state
+
+      timezone_package:
+        type: list
+        elements: str
+        required: false
+        description: timezone_package
+
       timezone_timezone:
         type: str
         required: false
