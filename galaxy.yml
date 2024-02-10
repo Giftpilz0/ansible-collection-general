@@ -16,6 +16,7 @@ tags:
   - dnf
   - timezone
   - update
+  - monitoring
   - packages
   - pcp
   - firewalld
