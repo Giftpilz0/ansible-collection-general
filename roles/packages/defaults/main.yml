@@ -9,7 +9,6 @@ packages_rpmfusion_package:
 packages_package_state: present
 packages_package:
   - curl
-  - htop
   - mkpasswd
   - python3-pip
   - rsync
