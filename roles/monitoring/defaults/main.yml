@@ -13,6 +13,6 @@ monitoring_agent_config_remoteserver_loki: http://127.0.0.1:3100/loki/api/v1/pus
 monitoring_agent_config_remoteserver_prometheus: http://127.0.0.1:9100/api/v1/push
 
 monitoring_agent_service_name: grafana-agent-flow-root.service
-monitoring_agent_service_path: /usr/lib/systemd/system/{{ monitoring_nodeexporter_service_name }}
+monitoring_agent_service_path: /usr/lib/systemd/system/{{ monitoring_agent_service_name }}
 monitoring_agent_service_state: started
 monitoring_agent_service_enabled: true
