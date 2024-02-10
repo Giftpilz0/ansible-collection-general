@@ -11,7 +11,6 @@ packages_package:
   - curl
   - htop
   - mkpasswd
-  - ncdu
   - python3-pip
   - rsync
   - vim
