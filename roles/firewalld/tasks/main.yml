@@ -40,6 +40,14 @@
   when:
     - firewalld_package_state != 'absent'
 
+- name: "Firewalld: Force reload"
+  become: true
+  ansible.builtin.command: firewall-cmd --reload
+  register: firewalld_reload
+  changed_when: firewalld_reload.rc != 0
+  when:
+    - firewalld_package_state != 'absent'
+
 - name: "Firewalld: Manage zones"
   become: true
   ansible.posix.firewalld:
