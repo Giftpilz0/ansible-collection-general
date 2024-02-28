@@ -5,8 +5,7 @@ monitoring_agent_arch: amd64
 monitoring_agent_tag: v0.38.1
 monitoring_agent_package_state: present
 monitoring_agent_package:
-  - https://github.com/grafana/agent/releases/download/{{
-    monitoring_agent_tag }}/grafana-agent-flow-{{ monitoring_agent_tag }}-1.{{ monitoring_agent_arch }}.rpm
+  - https://github.com/grafana/agent/releases/download/{{ monitoring_agent_tag }}/grafana-agent-flow-{{ monitoring_agent_tag }}-1.{{ monitoring_agent_arch }}.rpm
 
 monitoring_agent_config_path: /etc/grafana-agent-flow.river
 monitoring_agent_config_remoteserver_loki: http://127.0.0.1:3100/loki/api/v1/push
