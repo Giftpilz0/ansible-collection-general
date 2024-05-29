@@ -39,7 +39,7 @@ set ignorecase  " case-insenitiv
 set incsearch   " incremental search
 set showmatch   " jump to matches
 set smartcase   " no ignorecase
-set nohlsearch
+set hlsearch
 
 " Enable mouse
 if has("mouse")
