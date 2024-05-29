@@ -15,5 +15,4 @@ endif
 call plug#begin(expand($HOME.'/.vim/bundle'))
   Plug 'vim-airline/vim-airline'
   Plug 'jacoborus/tender.vim'
-  Plug 'joereynolds/SQHell.vim'
 call plug#end()
