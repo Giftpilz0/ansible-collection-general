@@ -4,7 +4,7 @@
 ######################################
 ### monitoring
 
-- name: "Monitoring: Gather package Facts"
+- name: "Monitoring: Gather package facts"
   ansible.builtin.package_facts:
     manager: auto
 
