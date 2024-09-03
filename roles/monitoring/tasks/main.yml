@@ -8,6 +8,15 @@
   ansible.builtin.package_facts:
     manager: auto
 
+- name: "Monitoring: Manage alloy repository keys"
+  become: true
+  ansible.builtin.rpm_key:
+    key: "https://rpm.grafana.com/gpg.key"
+    state: "{{ monitoring_agent_package_state }}"
+    fingerprint: "B53A E77B ADB6 30A6 8304 6005 963F A277 1045 8545"
+  when:
+    - monitoring_agent_package_state != 'skip'
+
 - name: "Monitoring: Download alloy"
   become: true
   ansible.builtin.package:
@@ -22,7 +31,7 @@
     src: config.alloy.j2
     dest: "{{ monitoring_agent_config_path }}"
     owner: root
-    group: root
+    group: alloy
     mode: "0640"
   when:
     - monitoring_agent_package_state != 'skip'
