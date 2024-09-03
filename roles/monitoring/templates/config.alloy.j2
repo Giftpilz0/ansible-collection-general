@@ -1,3 +1,6 @@
+
+// Full configuration reference, see https://grafana.com/docs/alloy
+
 // Logfiles
 local.file_match "log" {
   path_targets = [{"__path__" = "/var/logs/**/*.log"}]
@@ -30,14 +33,6 @@ prometheus.exporter.unix "node" { }
 prometheus.scrape "node" {
   targets         = prometheus.exporter.unix.node.targets
   forward_to      = [prometheus.remote_write.endpoint.receiver]
-}
-
-// grafana_agent
-prometheus.exporter.agent "agent" { }
-
-prometheus.scrape "agent" {
-  targets    = prometheus.exporter.agent.agent.targets
-  forward_to = [prometheus.remote_write.endpoint.receiver]
 }
 
 // Endpoints

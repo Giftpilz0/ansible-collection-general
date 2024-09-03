@@ -8,7 +8,7 @@
   ansible.builtin.package_facts:
     manager: auto
 
-- name: "Monitoring: Download grafana-agent"
+- name: "Monitoring: Download alloy"
   become: true
   ansible.builtin.package:
     name: "{{ monitoring_agent_package }}"
@@ -16,29 +16,18 @@
   when:
     - monitoring_agent_package_state != 'skip'
 
-- name: "Monitoring: Manage grafana-agent config"
+- name: "Monitoring: Manage alloy config"
   become: true
   ansible.builtin.template:
-    src: grafana-agent-flow.river.j2
+    src: config.alloy.j2
     dest: "{{ monitoring_agent_config_path }}"
     owner: root
-    group: grafana-agent
+    group: root
     mode: "0640"
   when:
     - monitoring_agent_package_state != 'skip'
   notify:
     - "Monitoring: Restart Agent"
-
-- name: "Monitoring: Manage service files"
-  become: true
-  ansible.builtin.template:
-    src: grafana-agent-flow-root.service.j2
-    dest: "{{ monitoring_agent_service_path }}"
-    owner: root
-    group: root
-    mode: "0644"
-  when:
-    - monitoring_agent_package_state != 'skip'
 
 - name: "Monitoring: Manage service"
   become: true
