@@ -8,6 +8,7 @@ firewalld_package_state: present
 firewalld_package:
   - firewalld
 
+firewalld_logging: all
 firewalld_permanent: true
 firewalld_immediate: true
 firewalld_default_zone: block

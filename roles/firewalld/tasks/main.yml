@@ -40,6 +40,19 @@
   when:
     - firewalld_package_state != 'absent'
 
+- name: "Firewalld: Manage LogDenied"
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/firewalld/firewalld.conf
+    regexp: ^LogDenied=
+    line: LogDenied={{ firewalld_logging }}
+    state: present
+    backrefs: true
+  notify:
+    - "Firewalld: Reload"
+  when:
+    - firewalld_package_state != 'absent'
+
 - name: "Firewalld: Force reload"
   become: true
   ansible.builtin.command: firewall-cmd --reload
