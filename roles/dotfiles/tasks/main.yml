@@ -80,38 +80,38 @@
   ansible.builtin.copy:
     src: wofi
     dest: /home/{{ ansible_user }}/.config/
-    owner: "{{ ansible_user }"
-    group: "{{ ansible_user }"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"
 
 - name: "Dotfiles: Manage swaync files"
   ansible.builtin.copy:
     src: swaync
     dest: /home/{{ ansible_user }}/.config/
-    owner: "{{ ansible_user }"
-    group: "{{ ansible_user }"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"
 
 - name: "Dotfiles: Manage kitty files"
   ansible.builtin.copy:
     src: kitty
     dest: /home/{{ ansible_user }}/.config/
-    owner: "{{ ansible_user }"
-    group: "{{ ansible_user }"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"
 
 - name: "Dotfiles: Manage hypr files"
   ansible.builtin.copy:
     src: hypr
     dest: /home/{{ ansible_user }}/.config/
-    owner: "{{ ansible_user }"
-    group: "{{ ansible_user }"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"
 
 - name: "Dotfiles: Manage eww files"
   ansible.builtin.copy:
     src: eww
     dest: /home/{{ ansible_user }}/.config/
-    owner: "{{ ansible_user }"
-    group: "{{ ansible_user }"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: "0644"
