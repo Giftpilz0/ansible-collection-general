@@ -1,0 +1,38 @@
+// bar
+
+.bar-widget {
+  @include window;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0rem;
+  margin: 0rem;
+}
+
+// volume
+
+.bar-volume {
+  padding: 0 0.4rem;
+  margin: 0 0.25rem;
+  font-size: 1.3rem;
+  border-radius: 1rem;
+  &:hover { background-color: mix($surfaceVariant, $onSurfaceVariant, 70%); }
+}
+
+// clock
+
+.bar-clock {
+  padding: 0 0.4rem;
+  margin: 0 0.25rem;
+  font-size: 1.3rem;
+  border-radius: 1rem;
+  &:hover { background-color: mix($surfaceVariant, $onSurfaceVariant, 70%); }
+}
+
+// power
+
+.bar-power {
+  padding: 0 0.4rem;
+  margin: 0 0.25rem;
+  font-size: 1.3rem;
+  border-radius: 1rem;
+  &:hover { background-color: mix($surfaceVariant, $onSurfaceVariant, 70%); }
+}

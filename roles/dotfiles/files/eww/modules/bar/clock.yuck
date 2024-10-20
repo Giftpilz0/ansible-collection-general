@@ -1,0 +1,14 @@
+; ##########################################
+; ### Clock
+; ##########################################
+
+(defwidget bar_clock []
+  (button
+    :onclick "eww open calendarmenu"
+    :class "bar-clock"
+    (label
+      :class "bar-clock"
+      :text {formattime(EWW_TIME, "%H:%M | %d.%m. | KW: %V")}
+      )
+    )
+  )

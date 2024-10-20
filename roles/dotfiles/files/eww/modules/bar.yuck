@@ -1,0 +1,66 @@
+; ##########################################
+; ### Layout
+; ##########################################
+
+(defwidget bar []
+  (box
+    :orientation "h"
+    :space-evenly true
+    :class "bar-widget"
+    (box
+      :orientation "h"
+      :space-evenly false
+      :halign "start"
+      (bar_left)
+      )
+    (box
+      :orientation "h"
+      :space-evenly false
+      :halign "center"
+      (bar_center)
+      )
+    (box
+      :orientation "h"
+      :space-evenly false
+      :halign "end"
+      (bar_right)
+      )
+    )
+  )
+
+; ##########################################
+; ### Left
+; ##########################################
+
+(defwidget bar_left []
+  (box
+    :orientation "h"
+    :space-evenly false
+    )
+  )
+
+; ##########################################
+; ### Center
+; ##########################################
+
+(defwidget bar_center []
+  (box
+    :orientation "h"
+    :space-evenly false
+    (bar_clock)
+    )
+  )
+
+; ##########################################
+; ### Right
+; ##########################################
+
+(defwidget bar_right []
+  (box
+    :orientation "h"
+    :space-evenly false
+    (bar_volume_output)
+    (bar_volume_input)
+    (bar_power)
+    )
+  )

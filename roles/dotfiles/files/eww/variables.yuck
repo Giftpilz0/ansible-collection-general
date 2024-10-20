@@ -1,0 +1,12 @@
+; VARS
+
+; POLLS
+
+(defpoll calendar_day :interval "1h" "date '+%d'")
+(defpoll calendar_month :interval "24h" "date '+%m'")
+(defpoll calendar_year :interval "24h" "date '+%Y'")
+
+; LISTENS
+
+(deflisten input-volume :initial "0" "scripts/volume.sh input")
+(deflisten output-volume :initial "0" "scripts/volume.sh output")

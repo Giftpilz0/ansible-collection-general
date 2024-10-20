@@ -1,0 +1,29 @@
+; ##########################################
+; ### Audio
+; ##########################################
+
+(defwidget bar_volume_output []
+  (eventbox
+    :onclick "wpctl set-mute @DEFAULT_SINK@ toggle"
+    :onscroll "if [ '{}' == 'up' ]; then wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; else wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; fi"
+    :class "bar-volume"
+    (label
+      :valign "center"
+      :class "bar-volume"
+      :text {output-volume == "muted" ? "" : output-volume < 33 ? "${output-volume}% " : output-volume < 67 ? "${output-volume}% " : "${output-volume}%  "}
+      )
+    )
+  )
+
+(defwidget bar_volume_input []
+  (eventbox
+    :onclick "wpctl set-mute @DEFAULT_SOURCE@ toggle"
+    :onscroll "if [ '{}' == 'up' ]; then wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+; else wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-; fi"
+    :class "bar-volume"
+    (label
+      :valign "center"
+      :class "bar-volume"
+      :text {input-volume == "muted" ? "" : "${input-volume}% "}
+      )
+    )
+  )
