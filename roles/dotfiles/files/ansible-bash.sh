@@ -20,6 +20,7 @@ then
 
   export LESS='-R --use-color -Dd+r$Du+b'
   export MANPAGER='less -R --use-color -Dd+r -Du+b'
+  export TERM=xterm-256color
 
   ### alias
   alias ll='ls -l'

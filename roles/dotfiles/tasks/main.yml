@@ -10,6 +10,15 @@
     name: "{{ dotfiles_package }}"
     state: "{{ dotfiles_package_state }}"
 
+- name: "Dotfiles: Manage eww bin"
+  become: true
+  ansible.builtin.copy:
+    src: eww-bin
+    dest: /usr/local/bin/eww
+    owner: root
+    group: root
+    mode: "0755"
+
 ######################################
 ### jobs
 
@@ -66,3 +75,43 @@
     state: "{{ dotfiles_inputrc_state }}"
   when:
     - dotfiles_inputrc_state != 'skip'
+
+- name: "Dotfiles: Manage wofi files"
+  ansible.builtin.copy:
+    src: wofi
+    dest: /home/{{ ansible_user }}/.config/
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+
+- name: "Dotfiles: Manage swaync files"
+  ansible.builtin.copy:
+    src: swaync
+    dest: /home/{{ ansible_user }}/.config/
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+
+- name: "Dotfiles: Manage kitty files"
+  ansible.builtin.copy:
+    src: kitty
+    dest: /home/{{ ansible_user }}/.config/
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+
+- name: "Dotfiles: Manage hypr files"
+  ansible.builtin.copy:
+    src: hypr
+    dest: /home/{{ ansible_user }}/.config/
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+
+- name: "Dotfiles: Manage eww files"
+  ansible.builtin.copy:
+    src: eww
+    dest: /home/{{ ansible_user }}/.config/
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"

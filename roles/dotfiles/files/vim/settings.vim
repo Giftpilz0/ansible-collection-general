@@ -5,7 +5,6 @@ set nowrap
 set nomodeline
 set lazyredraw
 set autowrite
-set cursorline        " highlight cursorline
 set novisualbell      " disable screenflash
 set viminfofile=NONE  " disable viminfo
 set number            " line numbers
@@ -26,6 +25,8 @@ set wildmode=longest:full,list:full
 syntax enable
 colorscheme tender
 set background=dark
+autocmd vimenter * highlight Normal guibg=NONE ctermbg=NONE
+autocmd vimenter * highlight EndOfBuffer guibg=NONE ctermbg=NONE
 
 " Tab, indent
 set autoindent

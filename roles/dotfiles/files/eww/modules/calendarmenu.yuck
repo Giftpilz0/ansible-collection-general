@@ -1,0 +1,26 @@
+; ##########################################
+; ### calendarmenu
+; ##########################################
+
+(defwidget calendarmenu []
+  (box
+    :orientation "v"
+    :space-evenly false
+    :valign "center"
+    :halign "center"
+    :class "calendarmenu-widget"
+    (calendar
+      :day calendar_day
+      :month calendar_month
+      :year calendar_year
+      )
+    (button
+      :class "calendarmenu-button"
+      :onclick "eww close calendarmenu"
+      (label
+        :class "calendarmenu-button-text"
+        :text "Close calendar"
+        )
+      )
+    )
+  )
