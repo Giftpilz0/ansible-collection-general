@@ -115,3 +115,11 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: "0644"
+
+- name: "Dotfiles: Manage helix files"
+  ansible.builtin.copy:
+    src: helix
+    dest: /home/{{ ansible_user }}/.config/
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"

@@ -1,0 +1,27 @@
+theme = "zed_onedark_modified"
+
+[editor]
+line-number = "absolute"
+bufferline = "multiple"
+
+[editor.statusline]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+nbsp = "none"
+nnbsp = "none"
+newline = "none"
+
+[editor.indent-guides]
+render = true
+
+[editor.file-picker]
+hidden = false
+
+[keys.normal]
+C-left = ":bp"
+C-right = ":bn"
