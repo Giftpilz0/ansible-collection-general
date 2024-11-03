@@ -12,7 +12,6 @@ packages_package:
   - mkpasswd
   - python3-pip
   - rsync
-  - vim
   - zstd
 
 packages_flatpak_repo: https://dl.flathub.org/repo/flathub.flatpakrepo
