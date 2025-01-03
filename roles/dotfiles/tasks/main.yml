@@ -117,9 +117,13 @@
     mode: "0644"
 
 - name: "Dotfiles: Manage helix files"
+  become: true
   ansible.builtin.copy:
     src: helix
-    dest: /home/{{ ansible_user }}/.config/
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    dest: "{{ item.path }}/.config/"
+    owner: "{{ item.user }}"
+    group: "{{ item.user }}"
     mode: "0644"
+  with_items:
+    - { path: "/root", user: "root" }
+    - { path: "/home/{{ ansible_user }}", user: "{{ ansible_user }}" }
