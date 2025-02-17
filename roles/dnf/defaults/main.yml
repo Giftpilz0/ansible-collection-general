@@ -7,3 +7,8 @@ dnf_automatic_service_enabled: true
 dnf_automatic_package_state: present
 dnf_automatic_package:
   - dnf-automatic
+
+dnf_automatic_config_path: /etc/dnf/automatic.conf
+dnf_automatic_config_auto_apply: true
+dnf_automatic_config_upgrade_type: default
+dnf_automatic_config_reboot: never

@@ -37,3 +37,30 @@ argument_specs:
         elements: str
         required: false
         description: dnf_automatic_package
+
+      dnf_automatic_config_path:
+        type: str
+        required: false
+        description: dnf_automatic_config_path
+
+      dnf_automatic_config_auto_apply:
+        type: bool
+        required: false
+        description: dnf_automatic_config_auto_apply
+
+      dnf_automatic_config_upgrade_type:
+        type: str
+        required: false
+        choices:
+          - default
+          - security
+        description: dnf_automatic_config_upgrade_type
+
+      dnf_automatic_config_reboot:
+        type: str
+        required: false
+        choices:
+          - never
+          - when-changed
+          - when-needed
+        description: dnf_automatic_config_reboot

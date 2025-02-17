@@ -22,6 +22,22 @@
     - "Dnf: Restart"
 
 ######################################
+### jobs
+
+- name: "Dnf: Copy dnf-automatic config (dnf5)"
+  become: true
+  ansible.builtin.template:
+    src: automatic.conf.j2
+    dest: "{{ dnf_automatic_config_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when:
+    - ansible_facts.pkg_mgr == 'dnf5'
+  notify:
+    - "Dnf: Restart"
+
+######################################
 ### services
 
 - name: "Dnf: Manage services"
