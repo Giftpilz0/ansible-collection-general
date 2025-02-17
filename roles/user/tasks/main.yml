@@ -4,11 +4,26 @@
 ######################################
 ### jobs
 
+- name: "User: Check if variables file exists"
+  ansible.builtin.stat:
+    path: "vars/{{ ansible_os_family }}.yaml"
+  register: vars_file
+
+- name: "User: Load variables file"
+  ansible.builtin.include_vars: "vars/{{ ansible_os_family }}.yml"
+  when: vars_file.stat.exists
+
 - name: "User: Manage group"
   become: true
   ansible.builtin.group:
     name: "{{ user_username }}"
     state: "{{ user_state }}"
+
+- name: "User: Install mkpasswd"
+  become: true
+  ansible.builtin.package:
+    name: "{{ user_mkpasswd_package }}"
+    state: present
 
 - name: "User: Hash password"
   ansible.builtin.command: mkpasswd {{ user_password }}

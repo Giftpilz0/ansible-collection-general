@@ -36,3 +36,8 @@ argument_specs:
           - present
           - absent
         description: user_state
+
+      user_mkpasswd_package:
+        type: list
+        required: false
+        description: user_mkpasswd_package
