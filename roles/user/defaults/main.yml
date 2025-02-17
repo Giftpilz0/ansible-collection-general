@@ -2,3 +2,4 @@
 # defaults file for user
 
 user_state: present
+user_password: "!"

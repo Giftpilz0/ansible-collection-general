@@ -30,13 +30,13 @@
   register: hashed_user_password
   changed_when: hashed_user_password.rc != 0
   when:
-    - user_password is defined
+    - user_password != "!"
 
 - name: "User: Set hashed password"
   ansible.builtin.set_fact:
     hashed_user_password: "{{ hashed_user_password.stdout }}"
   when:
-    - user_password is defined
+    - user_password != "!"
 
 - name: "User: Manage user"
   become: true
@@ -44,7 +44,7 @@
     name: "{{ user_username }}"
     group: "{{ user_username }}"
     groups: "{{ user_groups | default({}) }}"
-    password: "{{ hashed_user_password | default({}) }}"
+    password: "{{ hashed_user_password | default('!') }}"
     create_home: "{{ user_home | default({}) }}"
     shell: "{{ user_shell | default({}) }}"
     state: "{{ user_state }}"
