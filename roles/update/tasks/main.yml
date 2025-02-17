@@ -4,7 +4,7 @@
 ######################################
 ### jobs
 
-- name: "Update: Update packages"
+- name: "Update: Update packages on RHEL-based systems"
   become: true
   ansible.builtin.dnf:
     name: "{{ update_package_names }}"
@@ -13,3 +13,11 @@
     update_cache: true
     security: "{{ update_package_security_only }}"
     bugfix: "{{ update_package_bugfix_only }}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Update packages on Debian-based systems
+  ansible.builtin.apt:
+    name: "{{ update_package_names }}"
+    state: latest
+    update_cache: true
+  when: ansible_os_family == 'Debian'
