@@ -36,6 +36,7 @@
   (box
     :orientation "h"
     :space-evenly false
+    (bar_network)
     )
   )
 
@@ -61,6 +62,7 @@
     :space-evenly false
     (bar_volume_output)
     (bar_volume_input)
+    (bar_battery)
     (bar_power)
     )
   )

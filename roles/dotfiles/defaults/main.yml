@@ -9,3 +9,7 @@ dotfiles_package:
 dotfiles_inputrc_file: /etc/inputrc
 dotfiles_inputrc_state: present
 dotfiles_bashprofile_enabled: true
+
+dotfiles_ssh_agent_service_name: ssh-agent.service
+dotfiles_ssh_agent_service_state: started
+dotfiles_ssh_agent_service_enabled: true

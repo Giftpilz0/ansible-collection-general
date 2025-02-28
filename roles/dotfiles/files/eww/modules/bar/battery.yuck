@@ -1,0 +1,14 @@
+; ##########################################
+; ### Battery
+; ##########################################
+
+(defwidget bar_battery []
+  (eventbox
+    :class "bar-battery"
+    (label
+      :valign "center"
+      :class "bar-battery"
+      :text "${EWW_BATTERY.BAT0.capacity}% "
+      )
+    )
+  )

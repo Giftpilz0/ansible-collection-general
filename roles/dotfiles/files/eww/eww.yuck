@@ -8,3 +8,5 @@
 (include "modules/bar/power.yuck")
 (include "modules/bar/clock.yuck")
 (include "modules/bar/volume.yuck")
+(include "modules/bar/battery.yuck")
+(include "modules/bar/network.yuck")

@@ -1,38 +1,70 @@
 // bar
 
 .bar-widget {
-  @include window;
-  padding: 0.3rem 0.5rem;
-  border-radius: 0rem;
-  margin: 0rem;
+    @include window;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0rem;
+    margin: 0rem;
+}
+
+// battery
+
+.bar-battery {
+    padding: 0 0.4rem;
+    margin: 0 0.25rem;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    &:hover {
+        background-color: mix($surfaceVariant, $onSurfaceVariant, 70%);
+    }
+}
+
+// network
+
+.bar-network {
+    padding: 0 0.4rem;
+    margin: 0 0.25rem;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    &:hover {
+        background-color: mix($surfaceVariant, $onSurfaceVariant, 70%);
+    }
 }
 
 // volume
 
 .bar-volume {
-  padding: 0 0.4rem;
-  margin: 0 0.25rem;
-  font-size: 1.3rem;
-  border-radius: 1rem;
-  &:hover { background-color: mix($surfaceVariant, $onSurfaceVariant, 70%); }
+    padding: 0 0.4rem;
+    margin: 0 0.25rem;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    min-width: 50px;
+
+    &:hover {
+        background-color: mix($surfaceVariant, $onSurfaceVariant, 70%);
+    }
 }
 
 // clock
 
 .bar-clock {
-  padding: 0 0.4rem;
-  margin: 0 0.25rem;
-  font-size: 1.3rem;
-  border-radius: 1rem;
-  &:hover { background-color: mix($surfaceVariant, $onSurfaceVariant, 70%); }
+    padding: 0 0.4rem;
+    margin: 0 0.25rem;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    &:hover {
+        background-color: mix($surfaceVariant, $onSurfaceVariant, 70%);
+    }
 }
 
 // power
 
 .bar-power {
-  padding: 0 0.4rem;
-  margin: 0 0.25rem;
-  font-size: 1.3rem;
-  border-radius: 1rem;
-  &:hover { background-color: mix($surfaceVariant, $onSurfaceVariant, 70%); }
+    padding: 0 0.4rem;
+    margin: 0 0.25rem;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    &:hover {
+        background-color: mix($surfaceVariant, $onSurfaceVariant, 70%);
+    }
 }

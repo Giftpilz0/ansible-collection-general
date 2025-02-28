@@ -1,0 +1,15 @@
+; ##########################################
+; ### Network
+; ##########################################
+
+(defwidget bar_network []
+  (button
+    :class "bar-network"
+    (for ip in ip_addresses
+      (label
+        :class "bar-network"
+        :text ip
+      )
+    )
+  )
+)

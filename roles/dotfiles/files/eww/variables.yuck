@@ -6,7 +6,11 @@
 (defpoll calendar_month :interval "24h" "date '+%m'")
 (defpoll calendar_year :interval "24h" "date '+%Y'")
 
-; LISTENS
+(defpoll output-volume :interval "0.5s" 'curl 127.0.0.1:8080/volume | jq \'.[] | select(.device == "@DEFAULT_SINK@") | .level\'')
+(defpoll output-mute :interval "0.5s" 'curl 127.0.0.1:8080/volume | jq \'.[] | select(.device == "@DEFAULT_SINK@") | .muted\'')
+(defpoll input-volume :interval "0.5s" 'curl 127.0.0.1:8080/volume | jq \'.[] | select(.device == "@DEFAULT_SOURCE@") | .level\'')
+(defpoll input-mute :interval "0.5s" 'curl 127.0.0.1:8080/volume | jq \'.[] | select(.device == "@DEFAULT_SOURCE@") | .muted\'')
 
-(deflisten input-volume :initial "0" "scripts/volume.sh input")
-(deflisten output-volume :initial "0" "scripts/volume.sh output")
+(defpoll ip_addresses :interval "10s" 'curl 127.0.0.1:8080/network | jq -r \'.[] | select(.IpAddress != "" and .IpAddress != "127.0.0.1") | .IpAddress\' | jq -R . | jq -s .')
+
+; LISTENS

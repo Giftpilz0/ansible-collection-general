@@ -8,7 +8,7 @@
     :class "bar-clock"
     (label
       :class "bar-clock"
-      :text {formattime(EWW_TIME, "%H:%M | %d.%m. | KW: %V")}
+      :text {formattime(EWW_TIME, "%d.%m.%Y | KW: %V | %H:%M:%S" )}
       )
     )
   )
