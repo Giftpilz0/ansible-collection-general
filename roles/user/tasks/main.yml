@@ -6,7 +6,7 @@
 
 - name: "User: Check if variables file exists"
   ansible.builtin.stat:
-    path: "vars/{{ ansible_os_family }}.yaml"
+    path: "vars/{{ ansible_os_family }}.yml"
   register: vars_file
 
 - name: "User: Load variables file"
