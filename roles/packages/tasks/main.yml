@@ -31,7 +31,7 @@
   become: true
   ansible.builtin.shell: |
     dnf swap -y ffmpeg-free ffmpeg --allowerasing
-    dnf4 groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+    dnf group install multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y
   register: rpmfusion_codecs
   changed_when: rpmfusion_codecs.rc != 0
   when:
@@ -43,7 +43,6 @@
     name:
       - "@core"
       - "@multimedia"
-      - "@sound-and-video"
     update_only: true
     state: latest
   when:
