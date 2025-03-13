@@ -6,7 +6,19 @@
 (defpoll calendar_month :interval "24h" "date '+%m'")
 (defpoll calendar_year :interval "24h" "date '+%Y'")
 
-; LISTENS
+(defpoll audio_outputs :interval "5s" "scripts/get_audio_outputs")
+(defpoll audio_output_volume :interval "0.2s" "scripts/get_audio_output_volume")
+(defpoll audio_output_mute :interval "0.2s" "scripts/get_audio_output_mute")
 
-(deflisten input-volume :initial "0" "scripts/volume.sh input")
-(deflisten output-volume :initial "0" "scripts/volume.sh output")
+(defpoll audio_inputs :interval "5s" "scripts/get_audio_inputs")
+(defpoll audio_input_volume :interval "0.2s" "scripts/get_audio_input_volume")
+(defpoll audio_input_mute :interval "0.2s" "scripts/get_audio_input_mute")
+
+(defpoll networks :interval "5s" "scripts/get_networks")
+(defpoll battery :interval "5s" "scripts/get_battery")
+
+(defpoll workspaces :interval "0.2s" "scripts/get_workspaces")
+(defpoll workspaces_active_window :interval "0.2s" "scripts/get_workspaces_active_window")
+
+
+; LISTENS

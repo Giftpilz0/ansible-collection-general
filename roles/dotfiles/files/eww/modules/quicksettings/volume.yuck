@@ -1,0 +1,54 @@
+; ##########################################
+; ### Audio
+; ##########################################
+
+(defwidget slider_volume_output []
+  (slider
+    :label {audio_output_mute == "true" ? "" : audio_output_volume < 33 ? "" : audio_output_volume < 67 ? "" : ""}
+    :onclick "wpctl set-mute @DEFAULT_SINK@ toggle"
+    :onchange "scripts/set_audio_output_volume {}"
+    :value audio_output_volume
+  )
+)
+
+(defwidget slider_volume_input []
+  (slider
+    :label {audio_input_mute == "true" ? "" : ""}
+    :onclick "wpctl set-mute @DEFAULT_SOURCE@ toggle"
+    :onchange "scripts/set_audio_input_volume {}"
+    :value audio_input_volume
+  )
+)
+
+(defwidget volume_devices []
+  (box
+    :orientation "h"
+    :space-evenly false
+    (box
+      :orientation "v"
+      (for sink in {jq(audio_outputs, '[.[] | { description: .description, name: .name, nickname: .nickname }]')}
+        (button
+          :onclick "scripts/set_audio_output ${sink.name} '${sink.description}'"
+          :class "generic-button"
+          (label
+            :xalign "0"
+            :text "${sink.nickname}"
+          )
+        )
+      )
+    )
+    (box
+      :orientation "v"
+      (for source in {jq(audio_inputs, '[.[] | { description: .description, name: .name, nickname: .nickname }]')}
+        (button
+          :onclick "scripts/set_audio_input ${source.name} '${source.description}'"
+          :class "generic-button"
+          (label
+            :xalign "0"
+            :text "${source.description}"
+          )
+        )
+      )
+    )
+  )
+)

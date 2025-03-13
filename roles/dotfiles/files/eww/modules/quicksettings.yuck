@@ -1,0 +1,40 @@
+; ##########################################
+; ### quicksettings
+; ##########################################
+
+(defwidget quicksettings []
+  (eventbox
+    :onhoverlost "eww close quicksettings"
+    (box
+      :orientation "vertical"
+      :space-evenly false
+      :class "quicksettings-widget"
+      (label
+        :class "quicksettings-entry"
+        :text "Quick Settings"
+      )
+      (box
+        :orientation "horizontal"
+        :space-evenly true
+        :class "quicksettings-entry"
+        (slider_volume_output)
+        (slider_volume_input)
+      )
+      (box
+        :orientation "vertical"
+        :space-evenly false
+        :class "quicksettings-entry"
+        (label
+          :text "Network Info"
+          :class "quicksettings-entry"
+        )
+        (network)
+        (label
+          :text "Audio Devices"
+          :class "quicksettings-entry"
+        )
+        (volume_devices)
+      )
+    )
+  )
+)

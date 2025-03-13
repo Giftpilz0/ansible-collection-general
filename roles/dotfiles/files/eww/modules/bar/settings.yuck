@@ -1,13 +1,13 @@
 ; ##########################################
-; ### clock
+; ### settings
 ; ##########################################
 
-(defwidget bar_clock []
+(defwidget bar_settings []
   (button
-    :onclick "eww open calendarmenu"
+    :onclick "eww open quicksettings"
     :class "bar-button"
     (label
-      :text {formattime(EWW_TIME, "%d.%m.%Y | KW: %V | %H:%M:%S" )}
+      :text  ""
     )
   )
 )

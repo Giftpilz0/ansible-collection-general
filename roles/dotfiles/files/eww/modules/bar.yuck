@@ -4,29 +4,26 @@
 
 (defwidget bar []
   (box
-    :orientation "h"
+    :orientation "horizontal"
     :space-evenly true
     :class "bar-widget"
     (box
       :orientation "h"
-      :space-evenly false
       :halign "start"
       (bar_left)
-      )
+    )
     (box
       :orientation "h"
-      :space-evenly false
       :halign "center"
       (bar_center)
-      )
+    )
     (box
       :orientation "h"
-      :space-evenly false
       :halign "end"
       (bar_right)
-      )
     )
   )
+)
 
 ; ##########################################
 ; ### Left
@@ -36,8 +33,9 @@
   (box
     :orientation "h"
     :space-evenly false
-    )
+    (workspaces_app_indicator)
   )
+)
 
 ; ##########################################
 ; ### Center
@@ -48,8 +46,8 @@
     :orientation "h"
     :space-evenly false
     (bar_clock)
-    )
   )
+)
 
 ; ##########################################
 ; ### Right
@@ -59,8 +57,8 @@
   (box
     :orientation "h"
     :space-evenly false
-    (bar_volume_output)
-    (bar_volume_input)
+    (bar_battery)
     (bar_power)
-    )
+    (bar_settings)
   )
+)

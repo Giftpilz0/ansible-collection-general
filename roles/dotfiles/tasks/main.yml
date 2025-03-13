@@ -127,3 +127,41 @@
   with_items:
     - { path: "/root", user: "root" }
     - { path: "/home/{{ ansible_user }}", user: "{{ ansible_user }}" }
+
+- name: "Dotfiles: Create user systemd directory"
+  become: true
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/.config/systemd/user
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    recurse: true
+    mode: "0755"
+
+- name: "Dotfiles: Copy systemd service"
+  become: true
+  ansible.builtin.copy:
+    src: ssh-agent/{{ dotfiles_ssh_agent_service_name }}
+    dest: /home/{{ ansible_user }}/.config/systemd/user/{{ dotfiles_ssh_agent_service_name }}
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0744"
+
+######################################
+### services
+
+- name: "Dotfiles: Systemd reread configs"
+  become_user: "{{ ansible_user }}"
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+
+- name: "Dotfiles: Manage services"
+  become_user: "{{ ansible_user }}"
+  become: true
+  ansible.builtin.systemd:
+    name: "{{ dotfiles_ssh_agent_service_name }}"
+    state: "{{ dotfiles_ssh_agent_service_state }}"
+    enabled: "{{ dotfiles_ssh_agent_service_enabled }}"
+    scope: user

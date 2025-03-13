@@ -1,0 +1,19 @@
+; ##########################################
+; ### network
+; ##########################################
+
+(defwidget network []
+  (box
+    :orientation "vertical"
+    (for interface in {jq(networks, '[.[] | select(.ipAddress and .ipAddress != "127.0.0.1") | { name: .interface, ip: .ipAddress }]')}
+      (button
+        :onclick "nm-connection-editor && sleep 1d"
+        :class "generic-button"
+        (label
+          :xalign "0"
+          :text "${interface.name}: ${interface.ip}"
+        )
+      )
+    )
+  )
+)

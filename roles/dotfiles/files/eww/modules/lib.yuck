@@ -1,0 +1,24 @@
+; ##########################################
+; ### Lib
+; ##########################################
+
+(defwidget slider [label value ?onchange ?onclick]
+  (box
+    :orientation "h"
+    :class "slider"
+    :space-evenly false
+    (button
+      :onclick onclick
+      :class "slider-button"
+      :halign "center"
+      label
+    )
+    (scale
+      :min 0
+      :max 101
+      :active {onchange != ""}
+      :value value
+      :onchange onchange
+    )
+  )
+)

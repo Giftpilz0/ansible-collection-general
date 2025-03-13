@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+curl -X POST -d '[{"device":"'"$1"'","default":true,"type":"source","adjust":50}]' http://127.0.0.1:8080/audio/actions
+notify-send "Switched input device: $2" -t 2000

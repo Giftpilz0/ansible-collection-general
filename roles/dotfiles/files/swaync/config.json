@@ -47,34 +47,6 @@
     "label": {
       "max-lines": 5,
       "text": "Label Text"
-    },
-    "mpris": {
-      "image-size": 96,
-      "image-radius": 12
-    },
-    "buttons-grid": {
-      "actions": [
-        {
-          "label": "󰐥",
-          "command": "systemctl poweroff"
-        },
-        {
-          "label": "󰜉",
-          "command": "systemctl reboot"
-        },
-        {
-          "label": "󰌾",
-          "command": "hyprlock"
-        },
-        {
-          "label": "󰍃",
-          "command": "swaymsg exit"
-        },
-        {
-          "label": "󰏥",
-          "command": "systemctl suspend"
-        }
-      ]
     }
   }
 }

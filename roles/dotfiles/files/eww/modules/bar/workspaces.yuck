@@ -1,0 +1,32 @@
+; ##########################################
+; ### workspaces
+; ##########################################
+
+(defwidget workspaces []
+  (box
+    :orientation "h"
+    (for workspace in {jq(workspaces, '[.[] | { id: .id }]')}
+      (button
+        :onclick "hyprctl dispatch workspace ${workspace.id}"
+        :class "workspace-button"
+        (label
+          :text "${workspace.id}"
+        )
+      )
+    )
+  )
+)
+
+(defwidget workspaces_app_indicator []
+  (box
+    :orientation "h"
+    (for active_window in {jq(workspaces_active_window, '[{ initialTitle: .initialTitle, class: .class, title: .title }]')} ; workaround
+      (button
+        :class "bar-button"
+        (label
+          :text "${active_window.initialTitle}"
+        )
+      )
+    )
+  )
+)
