@@ -4,5 +4,5 @@
 sysutil_bin_state: present
 sysutil_url: https://github.com/Giftpilz0/sysutil/releases/download/{{ sysutil_tag }}/sysutil_Linux_{{ sysutil_arch }}.tar.gz
 sysutil_arch: x86_64
-sysutil_tag: 1.2.0
+sysutil_tag: 1.2.1
 sysutil_path: /usr/local/bin
