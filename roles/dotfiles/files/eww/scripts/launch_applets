@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+declare -A applets
+applets[bluetooth]="cosmic-applet-bluetooth"
+applets[network]="cosmic-applet-network"
+applets[audio]="cosmic-applet-audio"
+applets[battery]="cosmic-applet-battery"
+
+is_running() {
+  pgrep -f "$1" > /dev/null
+}
+
+toggle_all_applets() {
+  local all_running=true
+
+  # Check if any applet is not running
+  for applet in "${applets[@]}"; do
+    if ! is_running "$applet"; then
+      all_running=false
+      break
+    fi
+  done
+
+  if $all_running; then
+    # Close all applets if they are running
+    for applet in "${applets[@]}"; do
+      pkill -f "$applet"
+    done
+  else
+    # Launch all applets if any are not running
+    for applet in "${applets[@]}"; do
+      if ! is_running "$applet"; then
+        $applet &
+      fi
+    done
+  fi
+}
+
+toggle_all_applets

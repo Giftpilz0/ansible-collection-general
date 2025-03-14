@@ -1,0 +1,13 @@
+; ##########################################
+; ### tray
+; ##########################################
+
+(defwidget bar_tray []
+  (systray
+    :class "menu"
+    :orientation "h"
+    :space-evenly true
+    :prepend-new true
+    :icon-size 20
+  )
+)

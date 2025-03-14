@@ -11,3 +11,13 @@
     )
   )
 )
+
+(defwidget bar_launch_applets []
+  (button
+    :onclick "scripts/launch_applets"
+    :class "bar-button"
+    (label
+      :text  ""
+    )
+  )
+)

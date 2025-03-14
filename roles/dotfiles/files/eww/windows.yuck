@@ -26,7 +26,7 @@
 
 (defwindow quicksettings
   :monitor 0
-  :stacking "fg"
+  :stacking "overlay"
   :geometry (
     geometry
       :x "10px"
@@ -35,8 +35,6 @@
       :height "0px"
       :anchor "top right"
   )
-  :windowtype "normal"
-  :wm-ignore true
   :namespace "eww"
   (quicksettings)
 )

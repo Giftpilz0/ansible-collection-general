@@ -60,5 +60,6 @@
     (bar_battery)
     (bar_power)
     (bar_settings)
+    (bar_launch_applets)
   )
 )
