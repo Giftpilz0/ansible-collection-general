@@ -20,4 +20,5 @@
     name: "{{ update_package_names }}"
     state: latest
     update_cache: true
+    only_upgrade: true
   when: ansible_os_family == 'Debian'
