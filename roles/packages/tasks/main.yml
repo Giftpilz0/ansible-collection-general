@@ -68,6 +68,15 @@
   when:
     - packages_rpmfusion_package_state != 'skip'
 
+- name: "Packages: Manage Copr Repo"
+  become: true
+  community.general.copr:
+    host: copr.fedorainfracloud.org
+    name: "{{ packages_copr_repo_name }}"
+    state: "{{ packages_copr_repo_state }}"
+  when:
+    - packages_copr_repo_state != 'skip'
+
 - name: "Packages: Manage packages"
   become: true
   ansible.builtin.package:

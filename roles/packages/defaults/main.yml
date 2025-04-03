@@ -18,6 +18,9 @@ packages_flatpak_repo: https://dl.flathub.org/repo/flathub.flatpakrepo
 packages_flatpak_repo_name: flathubrepo
 packages_flatpak_repo_state: present
 
+packages_copr_repo_name: ""
+packages_copr_repo_state: skip
+
 packages_additional_package_state: present
 packages_additional_package: []
 packages_flatpak_package_state: present

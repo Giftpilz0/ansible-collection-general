@@ -100,3 +100,18 @@ argument_specs:
           - absent
           - skip
         description: packages_flatpak_repo_state
+
+      packages_copr_repo_name:
+        type: str
+        required: false
+        description: packages_copr_repo_name
+
+      packages_copr_repo_state:
+        type: str
+        required: false
+        choices:
+          - absent
+          - enabled
+          - disabled
+          - skip
+        description: packages_copr_repo_state
