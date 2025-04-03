@@ -24,7 +24,7 @@
       (button
         :class "bar-button"
         (label
-          :text "${active_window.initialTitle}"
+          :text "${active_window.initialTitle == "null" ? "" : "${active_window.initialTitle}"}"
         )
       )
     )

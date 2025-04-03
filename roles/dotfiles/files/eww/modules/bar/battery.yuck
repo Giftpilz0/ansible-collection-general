@@ -6,7 +6,7 @@
   (button
     :class "bar-button"
     (label
-      :text "${battery.percentage}% "
+      :text "${battery.state == "" ? "" : "${battery.percentage}% "}"
     )
   )
 )

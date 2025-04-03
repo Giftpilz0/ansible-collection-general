@@ -7,7 +7,7 @@
     :onclick "eww open calendarmenu"
     :class "bar-button"
     (label
-      :text {formattime(EWW_TIME, "%d.%m.%Y | KW: %V | %H:%M:%S" )}
+      :text {formattime(EWW_TIME, "%d %B, %H:%M, Week %V" )}
     )
   )
 )

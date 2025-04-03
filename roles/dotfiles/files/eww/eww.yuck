@@ -7,7 +7,6 @@
 (include "modules/calendarmenu.yuck")
 
 (include "modules/bar.yuck")
-(include "modules/bar/tray.yuck")
 (include "modules/bar/power.yuck")
 (include "modules/bar/clock.yuck")
 (include "modules/bar/battery.yuck")
