@@ -1,0 +1,7 @@
+---
+packages_package:
+  - curl
+  - mkpasswd
+  - python3-pip
+  - rsync
+  - zstd

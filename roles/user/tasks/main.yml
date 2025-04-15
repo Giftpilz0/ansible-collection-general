@@ -4,14 +4,13 @@
 ######################################
 ### jobs
 
-- name: "User: Check if variables file exists"
-  ansible.builtin.stat:
-    path: "vars/{{ ansible_os_family }}.yml"
-  register: vars_file
-
 - name: "User: Load variables file"
-  ansible.builtin.include_vars: "vars/{{ ansible_os_family }}.yml"
-  when: vars_file.stat.exists
+  ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
+
+- name: "User: Unsupported distribution"
+  ansible.builtin.fail:
+    msg: "{{ ansible_os_family }} is not supported"
+  when: user_mkpasswd_package is undefined
 
 - name: "User: Manage group"
   become: true

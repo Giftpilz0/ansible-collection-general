@@ -8,6 +8,9 @@
   ansible.builtin.package_facts:
     manager: auto
 
+- name: "Packages: Load variables file"
+  ansible.builtin.include_vars: "vars/{{ ansible_os_family }}.yml"
+
 - name: "Packages: Manage rpmfusion repository keys"
   become: true
   ansible.builtin.rpm_key:
@@ -18,6 +21,7 @@
     - /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-fedora-{{ ansible_distribution_version }}
   when:
     - packages_rpmfusion_package_state != 'skip'
+    - ansible_os_family == "RedHat"
 
 - name: "Packages: Manage rpmfusion repository"
   become: true
@@ -26,6 +30,7 @@
     state: "{{ packages_rpmfusion_package_state }}"
   when:
     - packages_rpmfusion_package_state != 'skip'
+    - ansible_os_family == "RedHat"
 
 - name: "Packages: Configure rpmfusion codecs"
   become: true
@@ -36,6 +41,7 @@
   changed_when: rpmfusion_codecs.rc != 0
   when:
     - packages_rpmfusion_package_state != 'skip'
+    - ansible_os_family == "RedHat"
 
 - name: "Packages: Configure rpmfusion"
   become: true
@@ -47,6 +53,7 @@
     state: latest
   when:
     - packages_rpmfusion_package_state != 'skip'
+    - ansible_os_family == "RedHat"
 
 - name: "Packages: Configure rpmfusion codecs - amd"
   become: true
@@ -57,6 +64,7 @@
   changed_when: rpmfusion_codecs_amd.rc != 0
   when:
     - packages_rpmfusion_package_state != 'skip'
+    - ansible_os_family == "RedHat"
 
 - name: "Packages: Configure rpmfusion codecs - intel"
   become: true
@@ -67,6 +75,7 @@
     state: "{{ packages_rpmfusion_package_state }}"
   when:
     - packages_rpmfusion_package_state != 'skip'
+    - ansible_os_family == "RedHat"
 
 - name: "Packages: Manage Copr Repo"
   become: true
@@ -76,6 +85,7 @@
     state: "{{ packages_copr_repo_state }}"
   when:
     - packages_copr_repo_state != 'skip'
+    - ansible_os_family == "RedHat"
 
 - name: "Packages: Manage packages"
   become: true

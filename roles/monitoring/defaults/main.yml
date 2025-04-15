@@ -2,7 +2,7 @@
 # defaults file for monitoring
 
 monitoring_agent_arch: amd64
-monitoring_agent_tag: 1.6.1
+monitoring_agent_tag: 1.8.1
 monitoring_agent_package_state: present
 monitoring_agent_package:
   - https://github.com/grafana/alloy/releases/download/v{{ monitoring_agent_tag }}/alloy-{{ monitoring_agent_tag }}-1.{{ monitoring_agent_arch }}.rpm
