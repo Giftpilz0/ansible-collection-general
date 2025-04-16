@@ -16,6 +16,7 @@
   when: ansible_os_family == 'RedHat'
 
 - name: Update packages on Debian-based systems
+  become: true
   ansible.builtin.apt:
     name: "{{ update_package_names }}"
     state: latest
@@ -24,6 +25,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: Update packages on Archlinux systems
+  become: true
   community.general.pacman:
     update_cache: true
     upgrade: true
