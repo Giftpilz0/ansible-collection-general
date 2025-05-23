@@ -31,7 +31,6 @@
 
   roles:
     - giftpilz0.general.dnf
-    - giftpilz0.general.dotfiles
     - giftpilz0.general.firewalld
     - giftpilz0.general.git
     - giftpilz0.general.monitoring

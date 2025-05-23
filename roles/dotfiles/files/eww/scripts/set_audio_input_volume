@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-curl -X POST -d '[{"adjust":'"$1"',"type":"source"}]' 127.0.0.1:8080/audio/actions

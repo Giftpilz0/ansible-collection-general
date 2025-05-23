@@ -1,5 +1,0 @@
-# Zed OneDark modified
-
-inherits = "zed_onedark"
-"ui.background" = {}
-"ui.gutter" = {}

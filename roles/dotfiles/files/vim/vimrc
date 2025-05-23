@@ -1,6 +1,0 @@
-source /etc/vim/bundles.vim
-source /etc/vim/settings.vim
-source /etc/vim/map.vim
-source /etc/vim/plugins.vim
-source /etc/vim/functions.vim
-source /etc/vim/autocmd.vim
