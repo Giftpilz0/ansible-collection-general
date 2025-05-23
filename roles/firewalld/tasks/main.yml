@@ -40,6 +40,21 @@
   when:
     - firewalld_package_state != 'absent'
 
+- name: "Firewalld: Set zone targets"
+  become: true
+  ansible.posix.firewalld:
+    permanent: true
+    immediate: false
+    zone: "{{ item.zone }}"
+    target: "{{ item.target }}"
+    state: present
+  with_items: "{{ firewalld_zones_define | default([]) }}"
+  notify:
+    - "Firewalld: Reload"
+  when:
+    - firewalld_package_state != 'absent'
+    - item.target is defined
+
 - name: "Firewalld: Manage LogDenied"
   become: true
   ansible.builtin.lineinfile:
