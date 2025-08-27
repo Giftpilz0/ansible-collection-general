@@ -91,3 +91,14 @@
     key: "{{ item.1 }}"
     state: present
   loop: "{{ user | subelements('user_pub', skip_missing=True) }}"
+
+- name: "User: Add authorized_keys to specified users"
+  become: true
+  ansible.posix.authorized_key:
+    user: "{{ item.0 }}"
+    key: "{{ item.1.1 }}"
+    state: present
+  loop: "{{ user_key_target_users | default([]) | product(user | subelements('user_pub', skip_missing=True)) | list }}"
+  when:
+    - user_key_target_users | length > 0
+    - item.1.0.user_install_key_to_targets | default(true)
