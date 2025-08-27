@@ -8,8 +8,8 @@
   become: true
   ansible.builtin.shell: |
     dnf swap -y libcurl-minimal libcurl
-  register: swap_libcurl
-  changed_when: swap_libcurl.rc != 0
+  register: dnf_swap_libcurl
+  changed_when: dnf_swap_libcurl.rc != 0
   when:
     - dnf_automatic_package_state != 'absent'
 

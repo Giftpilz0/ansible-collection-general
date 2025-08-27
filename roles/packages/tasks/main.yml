@@ -37,8 +37,8 @@
   ansible.builtin.shell: |
     dnf swap -y ffmpeg-free ffmpeg --allowerasing
     dnf group install multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y
-  register: rpmfusion_codecs
-  changed_when: rpmfusion_codecs.rc != 0
+  register: packages_rpmfusion_codecs
+  changed_when: packages_rpmfusion_codecs.rc != 0
   when:
     - packages_rpmfusion_package_state != 'skip'
     - ansible_os_family == "RedHat"
@@ -60,8 +60,8 @@
   ansible.builtin.shell: |
     dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
     dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
-  register: rpmfusion_codecs_amd
-  changed_when: rpmfusion_codecs_amd.rc != 0
+  register: packages_rpmfusion_codecs_amd
+  changed_when: packages_rpmfusion_codecs_amd.rc != 0
   when:
     - packages_rpmfusion_package_state != 'skip'
     - ansible_os_family == "RedHat"

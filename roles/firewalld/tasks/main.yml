@@ -93,8 +93,8 @@
 - name: "Firewalld: Manage default zone"
   become: true
   ansible.builtin.command: firewall-cmd --set-default-zone={{ firewalld_default_zone }}
-  register: firewall_zone
-  changed_when: firewall_zone.rc != 0
+  register: firewalld_firewall_zone
+  changed_when: firewalld_firewall_zone.rc != 0
   when:
     - firewalld_package_state != 'absent'
 
