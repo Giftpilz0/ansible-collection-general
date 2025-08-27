@@ -67,7 +67,7 @@
     backup: true
   with_items: "{{ user }}"
   when:
-    - item.user_sudo_pwless == 'true'
+    - item.user_sudo_pwless
 
 - name: "User: Disallow passwordless sudo"
   become: true
@@ -82,7 +82,7 @@
     backup: true
   with_items: "{{ user }}"
   when:
-    - item.user_sudo_pwless != 'true'
+    - not item.user_sudo_pwless
 
 - name: "User: Add authorized_keys"
   become: true
