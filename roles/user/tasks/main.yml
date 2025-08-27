@@ -15,8 +15,9 @@
 - name: "User: Manage group"
   become: true
   ansible.builtin.group:
-    name: "{{ user_username }}"
-    state: "{{ user_state }}"
+    name: "{{ item.user_username }}"
+    state: "{{ item.user_state }}"
+  with_items: "{{ user }}"
 
 - name: "User: Install mkpasswd"
   become: true
@@ -24,26 +25,69 @@
     name: "{{ user_mkpasswd_package }}"
     state: present
 
-- name: "User: Hash password"
-  ansible.builtin.command: mkpasswd {{ user_password }}
-  register: hashed_user_password
-  changed_when: hashed_user_password.rc != 0
+- name: "User: Hash passwords"
+  ansible.builtin.command: mkpasswd "{{ item.user_password }}"
+  register: user_hashed_passwords
+  changed_when: false
+  loop: "{{ user }}"
   when:
-    - user_password != "!"
+    - item.user_password != "!"
 
-- name: "User: Set hashed password"
+- name: "User: Create password hash mapping"
   ansible.builtin.set_fact:
-    hashed_user_password: "{{ hashed_user_password.stdout }}"
+    user_password_map: "{{ user_password_map | default({}) | combine({item.item.user_username: item.stdout}) }}"
+  loop: "{{ user_hashed_passwords.results }}"
   when:
-    - user_password != "!"
+    - item is not skipped
+    - item.stdout is defined
 
 - name: "User: Manage user"
   become: true
   ansible.builtin.user:
-    name: "{{ user_username }}"
-    group: "{{ user_username }}"
-    groups: "{{ user_groups | default({}) }}"
-    password: "{{ hashed_user_password | default('!') }}"
-    create_home: "{{ user_home | default({}) }}"
-    shell: "{{ user_shell | default({}) }}"
-    state: "{{ user_state }}"
+    name: "{{ item.user_username }}"
+    group: "{{ item.user_username }}"
+    groups: "{{ item.user_groups | default({}) }}"
+    create_home: "{{ item.user_home | default({}) }}"
+    shell: "{{ item.user_shell | default({}) }}"
+    password: "{{ user_password_map[item.user_username] | default('!') }}"
+    state: "{{ item.user_state }}"
+    comment: "{{ item.user_comment }}"
+  with_items: "{{ user }}"
+
+- name: "User: Allow passwordless sudo"
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/ansible_users
+    regexp: "#? *{{ item.user_username }} "
+    line: "{{ item.user_username }} ALL=(ALL) NOPASSWD: ALL"
+    create: true
+    mode: "0440"
+    group: root
+    owner: root
+    backup: true
+  with_items: "{{ user }}"
+  when:
+    - item.user_sudo_pwless == 'true'
+
+- name: "User: Disallow passwordless sudo"
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/ansible_users
+    regexp: "#? *{{ item.user_username }} "
+    line: "# {{ item.user_username }} ALL=(ALL) NOPASSWD: ALL"
+    create: true
+    mode: "0440"
+    group: root
+    owner: root
+    backup: true
+  with_items: "{{ user }}"
+  when:
+    - item.user_sudo_pwless != 'true'
+
+- name: "User: Add authorized_keys"
+  become: true
+  ansible.posix.authorized_key:
+    user: "{{ item.0.user_username }}"
+    key: "{{ item.1 }}"
+    state: present
+  loop: "{{ user | subelements('user_pub', skip_missing=True) }}"
