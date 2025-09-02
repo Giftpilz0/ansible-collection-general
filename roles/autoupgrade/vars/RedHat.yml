@@ -1,0 +1,18 @@
+---
+# RedHat-specific variables for autoupgrade role
+
+# Service settings
+autoupgrade_service_name: dnf-automatic.timer
+autoupgrade_service_state: started
+autoupgrade_service_enabled: true
+
+# Package settings
+autoupgrade_package_state: present
+autoupgrade_package_list:
+  - dnf-automatic
+
+# Configuration path
+autoupgrade_config_path: /etc/dnf/automatic.conf
+autoupgrade_auto_apply: true
+autoupgrade_upgrade_type: default
+autoupgrade_reboot: never

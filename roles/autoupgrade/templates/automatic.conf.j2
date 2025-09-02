@@ -1,16 +1,16 @@
 [commands]
-apply_updates = {{ dnf_automatic_config_auto_apply }}
+apply_updates = {{ autoupgrade_auto_apply }}
 download_updates = True
 
 # What kind of upgrade to perform:
 # default                            = all available upgrades
 # security                           = only the security upgrades
-upgrade_type =  {{ dnf_automatic_config_upgrade_type }}
+upgrade_type =  {{ autoupgrade_upgrade_type }}
 
 # When the system should reboot following upgrades:
 # never                              = don't reboot after upgrades
 # when-changed                       = reboot after any changes
 # when-needed                        = reboot when necessary to apply changes
-reboot = {{ dnf_automatic_config_reboot }}
+reboot = {{ autoupgrade_reboot }}
 
 reboot_command = "shutdown -r +5 'Rebooting after applying package updates'"

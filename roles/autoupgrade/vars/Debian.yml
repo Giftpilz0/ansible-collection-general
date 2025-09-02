@@ -1,0 +1,18 @@
+---
+# Debian-specific variables for autoupgrade role
+
+# Service settings
+autoupgrade_service_name: apt-daily-upgrade.timer
+autoupgrade_service_state: started
+autoupgrade_service_enabled: true
+
+# Package settings
+autoupgrade_package_state: present
+autoupgrade_package_list:
+  - unattended-upgrades
+
+# Configuration path
+autoupgrade_config_path: /etc/apt/apt.conf.d/20auto-upgrades
+autoupgrade_auto_apply: true
+autoupgrade_upgrade_type: default
+autoupgrade_reboot: false

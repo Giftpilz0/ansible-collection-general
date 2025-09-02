@@ -13,7 +13,7 @@ authors:
 
 tags:
   - linux
-  - dnf
+  - autoupgrade
   - timezone
   - update
   - monitoring

@@ -1,0 +1,66 @@
+---
+argument_specs:
+  main:
+    short_description: The main entry point for the autoupgrade role.
+    options:
+      autoupgrade_service_name:
+        type: str
+        required: false
+        description: autoupgrade_service_name
+
+      autoupgrade_service_state:
+        type: str
+        required: false
+        choices:
+          - reloaded
+          - restarted
+          - started
+          - stopped
+        description: autoupgrade_service_state
+
+      autoupgrade_service_enabled:
+        type: bool
+        required: false
+        description: autoupgrade_service_enabled
+
+      autoupgrade_package_state:
+        type: str
+        required: false
+        choices:
+          - present
+          - absent
+          - latest
+        description: autoupgrade_package_state
+
+      autoupgrade_package:
+        type: list
+        elements: str
+        required: false
+        description: autoupgrade_package
+
+      autoupgrade_config_path:
+        type: str
+        required: false
+        description: autoupgrade_config_path
+
+      autoupgrade_config_auto_apply:
+        type: bool
+        required: false
+        description: autoupgrade_config_auto_apply
+
+      autoupgrade_config_upgrade_type:
+        type: str
+        required: false
+        choices:
+          - default
+          - security
+        description: autoupgrade_config_upgrade_type
+
+      autoupgrade_config_reboot:
+        type: str
+        required: false
+        choices:
+          - never
+          - when-changed
+          - when-needed
+        description: autoupgrade_config_reboot

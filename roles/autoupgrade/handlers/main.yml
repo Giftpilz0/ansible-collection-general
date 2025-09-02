@@ -1,0 +1,10 @@
+---
+# handlers file for autoupgrade
+
+- name: "Autoupgrade: Restart"
+  become: true
+  ansible.builtin.service:
+    name: "{{ autoupgrade_service_name }}"
+    state: restarted
+  when:
+    - autoupgrade_package_state != 'absent'

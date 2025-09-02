@@ -1,0 +1,19 @@
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+
+#clear Unattended-Upgrade::Allowed-Origins;
+#clear Unattended-Upgrade::Origins-Pattern;
+
+Unattended-Upgrade::Origins-Pattern {
+    "origin=*";
+};
+
+Unattended-Upgrade::Package-Blacklist {};
+Unattended-Upgrade::AutoFixInterruptedDpkg "true";
+Dpkg::Options {"--force-confold"};
+Unattended-Upgrade::MinimalSteps "true";
+Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
+Unattended-Upgrade::Remove-New-Unused-Dependencies "true";
+Unattended-Upgrade::Remove-Unused-Dependencies "false";
+Unattended-Upgrade::Automatic-Reboot "{{ autoupgrade_reboot | lower }}";
+Unattended-Upgrade::Automatic-Reboot-Time "02:00";

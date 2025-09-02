@@ -1,0 +1,69 @@
+---
+# tasks file for autoupgrade
+
+- name: "Autoupgrade: Load variables file"
+  ansible.builtin.include_vars: "vars/{{ ansible_os_family }}.yml"
+
+######################################
+### packages
+
+- name: "Autoupgrade: Swap libcurl-minimal (dnf only)"
+  become: true
+  ansible.builtin.shell: |
+    dnf swap -y libcurl-minimal libcurl
+  register: autoupgrade_dnf_swap_libcurl
+  changed_when: autoupgrade_dnf_swap_libcurl.rc != 0
+  when:
+    - ansible_facts.os_family == 'RedHat'
+    - autoupgrade_package_state != 'absent'
+
+- name: "Autoupgrade: Manage packages"
+  become: true
+  ansible.builtin.package:
+    name: "{{ autoupgrade_package_list }}"
+    state: "{{ autoupgrade_package_state }}"
+  when:
+    - autoupgrade_package_state != 'absent'
+  notify:
+    - "Autoupgrade: Restart"
+
+######################################
+### jobs
+
+- name: "Autoupgrade: Copy dnf-automatic config"
+  become: true
+  ansible.builtin.template:
+    src: automatic.conf.j2
+    dest: "{{ autoupgrade_config_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when:
+    - ansible_facts.os_family == 'RedHat'
+  notify:
+    - "Autoupgrade: Restart"
+
+- name: "Autoupgrade: Copy apt config"
+  become: true
+  ansible.builtin.template:
+    src: apt-autoupgrade.conf.j2
+    dest: "{{ autoupgrade_config_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when:
+    - ansible_facts.os_family == 'Debian'
+  notify:
+    - "Autoupgrade: Restart"
+
+######################################
+### services
+
+- name: "Autoupgrade: Manage services"
+  become: true
+  ansible.builtin.service:
+    name: "{{ autoupgrade_service_name }}"
+    state: "{{ autoupgrade_service_state }}"
+    enabled: "{{ autoupgrade_service_enabled }}"
+  when:
+    - autoupgrade_package_state != 'absent'
