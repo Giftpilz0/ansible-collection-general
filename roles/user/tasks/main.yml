@@ -41,19 +41,6 @@
     - item is not skipped
     - item.stdout is defined
 
-- name: "User: Manage user"
-  become: true
-  ansible.builtin.user:
-    name: "{{ item.user_username }}"
-    group: "{{ item.user_username }}"
-    groups: "{{ item.user_groups | default({}) }}"
-    create_home: "{{ item.user_home | default({}) }}"
-    shell: "{{ item.user_shell | default({}) }}"
-    password: "{{ user_password_map[item.user_username] | default('!') }}"
-    state: "{{ item.user_state }}"
-    comment: "{{ item.user_comment }}"
-  with_items: "{{ user }}"
-
 - name: "User: Allow passwordless sudo"
   become: true
   ansible.builtin.lineinfile:
@@ -83,6 +70,19 @@
   with_items: "{{ user }}"
   when:
     - not item.user_sudo_pwless
+
+- name: "User: Manage user"
+  become: true
+  ansible.builtin.user:
+    name: "{{ item.user_username }}"
+    group: "{{ item.user_username }}"
+    groups: "{{ item.user_groups | default({}) }}"
+    create_home: "{{ item.user_home | default({}) }}"
+    shell: "{{ item.user_shell | default({}) }}"
+    password: "{{ user_password_map[item.user_username] | default('!') }}"
+    state: "{{ item.user_state }}"
+    comment: "{{ item.user_comment }}"
+  with_items: "{{ user }}"
 
 - name: "User: Add authorized_keys"
   become: true
