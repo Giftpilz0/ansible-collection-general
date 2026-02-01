@@ -14,16 +14,22 @@ packages_package:
   - rsync
   - zstd
 
-packages_flatpak_repo: https://dl.flathub.org/repo/flathub.flatpakrepo
-packages_flatpak_repo_name: flathubrepo
-packages_flatpak_repo_state: present
+packages_flatpak_repos:
+  - name: flathub
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    state: present
 
-packages_copr_repo_name: ""
-packages_copr_repo_state: skip
+packages_flatpak_repos_remove: [] # ["flathub", "fedora"]
+
+packages_flatpak_package: {}
+#  - name: org.gnome.gedit
+#    state: present
+
+packages_copr_repos: {}
+#  - name: "giftpilz0/misc"
+#    state: "skip"
 
 packages_additional_package_state: present
 packages_additional_package: []
-packages_flatpak_package_state: present
-packages_flatpak_package: []
 packages_python_package_state: present
 packages_python_package: []

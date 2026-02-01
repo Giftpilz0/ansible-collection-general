@@ -77,14 +77,15 @@
     - packages_rpmfusion_package_state != 'skip'
     - ansible_os_family == "RedHat"
 
-- name: "Packages: Manage Copr Repo"
+- name: "Packages: Manage Copr Repositories"
   become: true
   community.general.copr:
     host: copr.fedorainfracloud.org
-    name: "{{ packages_copr_repo_name }}"
-    state: "{{ packages_copr_repo_state }}"
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  loop: "{{ packages_copr_repos }}"
   when:
-    - packages_copr_repo_state != 'skip'
+    - item.state != 'skip'
     - ansible_os_family == "RedHat"
 
 - name: "Packages: Manage packages"
@@ -106,23 +107,37 @@
 - name: "Packages: Manage flatpak repository"
   become: true
   community.general.flatpak_remote:
-    name: "{{ packages_flatpak_repo_name }}"
-    flatpakrepo_url: "{{ packages_flatpak_repo }}"
+    name: "{{ item.name }}"
+    flatpakrepo_url: "{{ item.flatpakrepo_url }}"
     method: system
-    state: "{{ packages_flatpak_repo_state }}"
+    state: "{{ item.state }}"
+  loop: "{{ packages_flatpak_repos }}"
   when:
     - "'flatpak' in ansible_facts.packages"
-    - packages_flatpak_repo_state != 'skip'
+    - item.state != 'skip'
+  ignore_errors: true
+
+- name: "Packages: Remove unwanted flatpak remotes"
+  become: true
+  community.general.flatpak_remote:
+    name: "{{ item }}"
+    method: system
+    state: absent
+  loop: "{{ packages_flatpak_repos_remove }}"
+  when:
+    - "'flatpak' in ansible_facts.packages"
+    - packages_flatpak_repos_remove | length > 0
 
 - name: "Packages: Manage flatpaks"
   become: true
   community.general.flatpak:
-    name: "{{ packages_flatpak_package }}"
-    state: "{{ packages_flatpak_package_state }}"
-    remote: "{{ packages_flatpak_repo_name }}"
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    remote: "{{ item.remote }}"
+  loop: "{{ packages_flatpak_package }}"
   when:
     - "'flatpak' in ansible_facts.packages"
-    - packages_flatpak_package_state != 'skip'
+    - item.state != 'skip'
 
 - name: "Packages: Manage python packages"
   become: true
