@@ -104,6 +104,10 @@
   when:
     - packages_package_state != 'skip'
 
+- name: "Packages: Gather package facts"
+  ansible.builtin.package_facts:
+    manager: auto
+
 - name: "Packages: Manage flatpak repository"
   become: true
   community.general.flatpak_remote:
