@@ -72,7 +72,7 @@ argument_specs:
 
       packages_flatpak_package:
         type: list
-        elements: str
+        elements: dict
         required: false
         description: packages_flatpak_package
 
@@ -82,36 +82,20 @@ argument_specs:
         required: false
         description: packages_python_package
 
-      packages_flatpak_repo:
-        type: str
+      packages_flatpak_repos:
+        type: list
+        elements: dict
         required: false
-        description: packages_flatpak_repo
+        description: packages_flatpak_repos
 
-      packages_flatpak_repo_name:
-        type: str
+      packages_flatpak_repos_remove:
+        type: list
+        elements: str
         required: false
-        description: packages_flatpak_repo_name
+        description: packages_flatpak_repos_remove
 
-      packages_flatpak_repo_state:
-        type: str
+      packages_copr_repos:
+        type: list
+        elements: dict
         required: false
-        choices:
-          - present
-          - absent
-          - skip
-        description: packages_flatpak_repo_state
-
-      packages_copr_repo_name:
-        type: str
-        required: false
-        description: packages_copr_repo_name
-
-      packages_copr_repo_state:
-        type: str
-        required: false
-        choices:
-          - absent
-          - enabled
-          - disabled
-          - skip
-        description: packages_copr_repo_state
+        description: packages_copr_repos

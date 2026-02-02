@@ -102,7 +102,7 @@
     name: "{{ packages_additional_package }}"
     state: "{{ packages_additional_package_state }}"
   when:
-    - packages_package_state != 'skip'
+    - packages_additional_package_state != 'skip'
 
 - name: "Packages: Gather package facts"
   ansible.builtin.package_facts:

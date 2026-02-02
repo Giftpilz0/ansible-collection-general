@@ -21,11 +21,11 @@ packages_flatpak_repos:
 
 packages_flatpak_repos_remove: [] # ["flathub", "fedora"]
 
-packages_flatpak_package: {}
+packages_flatpak_package: []
 #  - name: org.gnome.gedit
 #    state: present
 
-packages_copr_repos: {}
+packages_copr_repos: []
 #  - name: "giftpilz0/misc"
 #    state: "skip"
 
